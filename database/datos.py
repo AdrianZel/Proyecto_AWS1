@@ -93,6 +93,21 @@ game=[]                             #Jugadores que jugaran
 total_de_cartas=len(cartas)         #Numero de cartas
 context_game={"game":list(players.keys()),"round":[]}   #diccionario global de uso
 
+# LISTAS PARA GENERAR LOS MENÚS DEL JUEGO
+main_menu = ["Add/Remove/Show Players", "Settings", "Play Game", "Ranking", "Reports", "Exit"]
+settings_menu = ["Set Game Players", "Set Card's Deck", "Set Max Rounds (Default 5 Rounds)", "Go Back"]
+ranking_menu =  ["Player With More Earnings", "Players With More Games Played", "Players With More Minutes Played", "Go Back"]
+reports_menu = ["Initial card more repeated by each user, \nonly users who have played a minimum of 3 games.",
+                "Player who makes the highest bet per game,\nfind the round with the highest bet",
+                "Player who makes the lowest bet per game.",
+                "Percentage of rounds won per player in each game\n(%), as well as their average bet for the game.",
+                "List of games won by Bots",
+                "Rounds won by the bank in each game.",
+                "Number of users have been the bank in each game.",
+                "Average bet per game",
+                "Average bet of the first round of each game.",
+                "Average bet of the last round of each game.",
+                "Go back"]
 
 
 
