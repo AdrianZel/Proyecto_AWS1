@@ -1,5 +1,6 @@
-import pyodbc
+import pymysql
 from datetime import datetime
+
 def datos_cartas():
     cartas = {"O01": {"literal": "1 de Oros", "value": 1, "priority": 4, "realValue": 1},
               "O02": {"literal": "2 de Oros", "value": 2, "priority": 4, "realValue": 2},
@@ -62,28 +63,39 @@ def datos_cartas():
 
 #recolectar datos del SQL y agregarlos al diccionario players
 def datos_jugadores():
-    players={}
     try:
-        conn= pyodbc.connect("Driver={MySQL ODBC 9.1 ANSI Driver};"
-                             "Server=localhost;"
-                             "Database=cartas;"
-                             "User=root;"
-                             "Password=adrian;"
-                             "Trusted_Connection=yes")
-        if conn:
-            print("coneccion")
-        cursor=conn.cursor()
-        #query
-        cursor.execute("select * from jugador")
-        #guardamos los datos en los jugadores
-        for jugador in cursor:
-            players[jugador[0]]={"name":jugador[1], "human": jugador[3], "bank": False, "initialCard": "", "priority": 0, "type": jugador[2], "bet": 4, "points": 0,"cards": [], "roundPoints": 0}
+        # Conexión a la base de datos
+        connection = pymysql.connect(
+            host='thesevenarmy.mysql.database.azure.com',
+            user='chayanne',
+            password='Qu13r0#S3r#T0r3r0!',
+            database='sevenandhalf'
+        )
+        print("Conexión exitosa a la base de datos")
 
+        # Crear un cursor para ejecutar la consulta
+        with connection.cursor() as cursor:
+            # Escribe tu consulta aquí (por ejemplo, selecciona una tabla)
+            query = "SELECT * FROM jugador;"
+            cursor.execute(query)
+
+            # Obtener los resultados de la consulta
+            results = cursor.fetchall()
+
+            # Imprimir los resultados
+            players = {}
+            for row in results:
+                players[row[0]] = {"name": row[1], "human": row[3], "bank": False, "initialCard": "", "priority": 0, "type": row[2], "bet": 4, "points":0,"cards":[],"roundPoints":0}
+            return players
+
+    except pymysql.MySQLError as e:
+        print(f"Error al ejecutar la consulta: {e}")
     finally:
-        if conn:
-            conn.close()
-            print("Coneccion cerrada")
-        return players
+        if 'connection' in locals() and connection:
+            connection.close()
+            print("Conexión cerrada")
+
+datos_jugadores()
 
 cartas=datos_cartas()               #cartas dela base de datos+
 players=datos_jugadores()           #jugadores de base de datos
@@ -93,6 +105,23 @@ game=[]                             #Jugadores que jugaran
 total_de_cartas=len(cartas)         #Numero de cartas
 context_game={"game":list(players.keys()),"round":[]}   #diccionario global de uso
 
+print(players)
+
+# LISTAS PARA GENERAR LOS MENÚS DEL JUEGO
+main_menu = ["Add/Remove/Show Players", "Settings", "Play Game", "Ranking", "Reports", "Exit"]
+settings_menu = ["Set Game Players", "Set Card's Deck", "Set Max Rounds (Default 5 Rounds)", "Go Back"]
+ranking_menu =  ["Player With More Earnings", "Players With More Games Played", "Players With More Minutes Played", "Go Back"]
+reports_menu = ["Initial card more repeated by each user, \nonly users who have played a minimum of 3 games.",
+                "Player who makes the highest bet per game,\nfind the round with the highest bet",
+                "Player who makes the lowest bet per game.",
+                "Percentage of rounds won per player in each game\n(%), as well as their average bet for the game.",
+                "List of games won by Bots",
+                "Rounds won by the bank in each game.",
+                "Number of users have been the bank in each game.",
+                "Average bet per game",
+                "Average bet of the first round of each game.",
+                "Average bet of the last round of each game.",
+                "Go back"]
 
 
 
