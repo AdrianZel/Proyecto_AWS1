@@ -14,7 +14,7 @@ espaciado_player=int(tamaño_pantalla*0.1)
 
 margen_game=int(tamaño_pantalla*0.1)
 espaciado_game=int(tamaño_pantalla*0.3)
-
+rank_tamaño=90
 #tamaño de menus
 
 #values de players
