@@ -173,3 +173,23 @@ def getID():
         dato = int(dato) + 1
 
     return dato
+
+
+
+
+
+#Query del ranking
+def get_ranking():
+    query="""
+    SELECT o.nif,o.name,sum(e.ending_points-e.starting_points),count(p.game_id),sum(timestampdiff(second,p.start_time,p.end_time)/60) FROM player o
+    join player_game e on o.nif=e.nif
+    join game p on p.game_id=e.game_id
+    group by o.nif,o.name
+    """
+    dato=select_query(query)
+    print(dato)
+    input()
+    rank={}
+    for i in dato:
+        rank[i[0]]={"name": i[1], "earnings": i[2], "games_played": i[3], "minutes_played": i[4]}
+    return rank
