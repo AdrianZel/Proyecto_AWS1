@@ -1,4 +1,63 @@
-import pyodbc
+import pymysql
+
+#recolectar datos del SQL y devuelve la arrays (lista de tuplas)
+def select_query(query):
+    try:
+        # Conexión a la base de datos
+        connection = pymysql.connect(
+            host='thesevenarmy.mysql.database.azure.com',
+            user='chayanne',
+            password='Qu13r0#S3r#T0r3r0!',
+            database='sevenandhalf'
+        )
+        #print("Conexión exitosa a la base de datos")
+
+        # Crear un cursor para ejecutar la consulta
+        with connection.cursor() as cursor:
+            # Consulta
+            cursor.execute(query)
+
+            # Obtener los resultados de la consulta
+            results = cursor.fetchall()
+
+            return results
+
+    except pymysql.MySQLError as e:
+        print(f"Error al ejecutar la consulta: {e}")
+    finally:
+        if 'connection' in locals() and connection:
+            connection.close()
+            #print("Conexión cerrada")
+
+#para insertar a base de datos many=1 si insertaras varias rows
+def insert_query(query,data,many=1):
+    # Conexión a la base de datos
+    try:
+        conn = pymysql.connect(
+            host='thesevenarmy.mysql.database.azure.com',
+            user='chayanne',
+            password='Qu13r0#S3r#T0r3r0!',
+            database='sevenandhalf',
+        )
+        cursor = conn.cursor()
+
+        # Insertar datos en la tabla partida
+        if many==1:
+            cursor.executemany(query,data)
+        else:
+            cursor.execute(query,data)
+
+        conn.commit()  # Confirmar los cambios
+        #print("Datos insertados en la tabla partida")
+
+    except pymysql.MySQLError as e:
+        print("Error al insertar datos:", e)
+
+    finally:
+        if conn:
+            cursor.close()
+            conn.close()
+
 
 #obtener datos dela carta
 def datos_cartas():
@@ -60,157 +119,57 @@ def datos_cartas():
               "B13": {"literal": "13 de Bastos", "value": 13, "priority": 1, "realValue": 0.5}
               }
     return cartas
+import pymysql
 
-#recolectar datos del SQL y agregarlos al diccionario players
+
 def datos_jugadores():
-    players={}
-    try:
-        conn = pyodbc.connect("Driver={MySQL ODBC 9.1 ANSI Driver};"
-                              "Server=localhost;"
-                              "Database=cartas;"
-                              "User=root;"
-                              "Password=adrian;"
-                              "Trusted_Connection=yes")
-        if conn:
-            print("coneccion")
-        cursor=conn.cursor()
+    datos=select_query("select * from player")
+    players = {}
+    for row in datos:
+        players[row[0]] = {"name": row[1], "human": row[3], "bank": False, "initialCard": "", "priority": 0,
+                           "type": row[2], "bet": 4, "points": 0, "cards": [], "roundPoints": 0}
+    return players
 
-        #query
-        cursor.execute("select * from jugador")
-        #guardamos los datos en los jugadores
-        for jugador in cursor:
-            players[jugador[0]]={"name":jugador[1], "human": jugador[3], "bank": False, "initialCard": "", "priority": 0, "type": jugador[2], "bet": 0, "points": 0,"cards": [], "roundPoints": 0}
-
-    finally:
-        if conn:
-            conn.close()
-            print("Coneccion cerrada")
-        return players
-
-#insertar play_game ala BBDD
 def insertarPlayGame(player_game):
-    values=[]
+    data = []
     for i in player_game:
         for j in player_game[i]:
-            values.append((i,j,player_game[i][j]["initial_card"],player_game[i][j]["starting_points"],player_game[i][j]["ending_points"]))
-    try:
-        conn = pyodbc.connect("Driver={MySQL ODBC 9.1 ANSI Driver};"
-                              "Server=localhost;"
-                              "Database=cartas;"
-                              "User=root;"
-                              "Password=adrian;"
-                              "Trusted_Connection=yes")
-        if conn:
-            print("coneccion")
-        cursor = conn.cursor()
+            data.append((i, j, player_game[i][j]["initial_card"], player_game[i][j]["starting_points"],
+                           player_game[i][j]["ending_points"]))
+    query="""
+    INSERT INTO player_game (game_id, nif, initial_card, starting_points, ending_points)
+    VALUES (%s,%s,%s,%s,%s)
+    """
+    insert_query(query,data)
 
-        # Insertar datos en la tabla ronda
-        query_ronda = """
-            INSERT INTO jugador_partida (id_partida, nif, carta_inicial, puntos_inicial, puntos_final)
-            VALUES (?, ?, ?, ?, ?)
-            """
-        cursor.executemany(query_ronda, values)
-        conn.commit()  # Confirmar los cambios
-        print("Datos insertados en la tabla ronda")
+def insertCardGame(cardGame):
+    data = (cardGame["cardgame_id"],cardGame["players"],cardGame["start_hour"],cardGame["rounds"],cardGame["end_hour"],1)
+    query="""
+    INSERT INTO game (game_id, number_of_players, start_time, rounds, end_time, deck)
+    VALUES (%s,%s,%s,%s,%s,%s)
+    """
+    insert_query(query,data,0)
 
-    except pyodbc.Error as e:
-        print("Error al insertar datos:", e)
 
-    finally:
-        if conn:
-            conn.close()
-
-# insertar play_game_round ala BBDD
-def insertarPlayGameRound(player_game_round,game_id):
-    values=[]
+def insertarPlayGameRound(player_game_round, game_id):
+    data = []
     for i in player_game_round:
         for j in player_game_round[i]:
-            values.append((game_id,i,j,player_game_round[i][j]["is_bank"],player_game_round[i][j]["bet_points"],player_game_round[i][j]["starting_round_points"],player_game_round[i][j]["cards_value"],player_game_round[i][j]["ending_round_points"]))
-    try:
-        conn = pyodbc.connect("Driver={MySQL ODBC 9.1 ANSI Driver};"
-                              "Server=localhost;"
-                              "Database=cartas;"
-                              "User=root;"
-                              "Password=adrian;"
-                              "Trusted_Connection=yes")
-        if conn:
-            print("coneccion")
-        cursor = conn.cursor()
+            data.append((game_id, i, j, player_game_round[i][j]["is_bank"], player_game_round[i][j]["bet_points"],
+                           player_game_round[i][j]["starting_round_points"], player_game_round[i][j]["cards_value"],player_game_round[i][j]["ending_round_points"]))
 
-        # Insertar datos en la tabla ronda
-        query_ronda = """
-            INSERT INTO jugador_partida_ronda (id_partida, id_ronda, nif, es_banca, apuesta, puntos_ronda_inicial, puntos_ronda_final, puntos_cartas)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    query="""
+            INSERT INTO player_round_game (game_id, round_id, nif, is_bank, bet, starting_round_points, card_points, ending_round_points)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
             """
+    insert_query(query,data)
 
-        cursor.executemany(query_ronda, values)
-        conn.commit()  # Confirmar los cambios
-        print("Datos insertados en la tabla ronda")
+def getID():
+    dato=select_query("select max(game_id) from game")
+    dato = list(dato)[0][0]
+    if dato == None:
+        dato = 1
+    else:
+        dato = int(dato) + 1
 
-    except pyodbc.Error as e:
-        print("Error al insertar datos:", e)
-
-    finally:
-        if conn:
-            conn.close()
-
-#insertar cardgame a la BBDD
-def insertCardGame(cardGame):
-
-    values = (cardGame["cardgame_id"],cardGame["players"],cardGame["start_hour"],cardGame["rounds"],cardGame["end_hour"])
-
-    try:
-        conn = pyodbc.connect("Driver={MySQL ODBC 9.1 ANSI Driver};"
-                              "Server=localhost;"
-                              "Database=cartas;"
-                              "User=root;"
-                              "Password=adrian;"
-                              "Trusted_Connection=yes")
-        if conn:
-            print("coneccion")
-        cursor = conn.cursor()
-
-        # Insertar datos en la tabla ronda
-        query_ronda = """
-            INSERT INTO partida (id_partida, jugadores, hora_inicio, rondas, hora_fin)
-            VALUES (?, ?, ?, ?, ?)
-            """
-
-        cursor.execute(query_ronda, values)
-        conn.commit()  # Confirmar los cambios
-        print("Datos insertados en la tabla ronda")
-
-    except pyodbc.Error as e:
-        print("Error al insertar datos:", e)
-
-    finally:
-        if conn:
-            conn.close()
-
-#obtener la bbdd
-def getIdGame():
-    try:
-        conn = pyodbc.connect("Driver={MySQL ODBC 9.1 ANSI Driver};"
-                              "Server=localhost;"
-                              "Database=cartas;"
-                              "User=root;"
-                              "Password=adrian;"
-                              "Trusted_Connection=yes")
-        if conn:
-            print("coneccion")
-        cursor=conn.cursor()
-        #query
-        cursor.execute("select max(id_partida) from partida")
-
-        id=list(cursor)[0][0]
-        if id==None:
-            id=1
-        else:
-            id=int(id)+1
-
-        return id
-
-    finally:
-        if conn:
-            conn.close()
-            print("Coneccion cerrada")
+    return dato
