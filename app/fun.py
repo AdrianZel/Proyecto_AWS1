@@ -115,7 +115,7 @@ def calculaChance(id,mazo):
 
     cartas_necesarias=((7.5-puntos_ronda)*4)+24
 
-    cartas_para_pasarse=total_de_cartas-cartas_necesarias
+    cartas_para_pasarse=len(cartas)-cartas_necesarias
     # print(cartas_para_pasarse,"pasarse")
     chance_para_pasarse=(cartas_para_pasarse/len(mazo))*100
 
