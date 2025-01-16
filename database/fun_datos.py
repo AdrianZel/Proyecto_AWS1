@@ -173,3 +173,19 @@ def getID():
         dato = int(dato) + 1
 
     return dato
+
+
+def set_max_rounds():
+    print("\n--- Set Max Rounds ---")
+    while True:
+        max_rounds = input("Enter the number of maximum rounds (1-30): ")
+        if max_rounds.isdigit():
+            max_rounds = int(max_rounds)
+            if max_rounds >= 1 and max_rounds <= 30:
+                print(f"Maximum rounds set to {max_rounds}.")
+                context_game["round"]=max_rounds
+                break
+            else:
+                print("Please enter a number between 1 and 30.")
+        else:
+            print("Invalid input. Please enter a number.")
