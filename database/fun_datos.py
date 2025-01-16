@@ -173,3 +173,37 @@ def getID():
         dato = int(dato) + 1
 
     return dato
+
+
+def set_max_rounds():
+    print("\n--- Set Max Rounds ---")
+    while True:
+        max_rounds = input("Enter the number of maximum rounds (1-30): ")
+        if max_rounds.isdigit():
+            max_rounds = int(max_rounds)
+            if max_rounds >= 1 and max_rounds <= 30:
+                print(f"Maximum rounds set to {max_rounds}.")
+                context_game["round"]=max_rounds
+                break
+            else:
+                print("Please enter a number between 1 and 30.")
+        else:
+            print("Invalid input. Please enter a number.")
+
+
+
+#Query del ranking
+def get_ranking():
+    query="""
+    SELECT o.nif,o.name,sum(e.ending_points-e.starting_points),count(p.game_id),sum(timestampdiff(second,p.start_time,p.end_time)/60) FROM player o
+    join player_game e on o.nif=e.nif
+    join game p on p.game_id=e.game_id
+    group by o.nif,o.name
+    """
+    dato=select_query(query)
+    print(dato)
+    input()
+    rank={}
+    for i in dato:
+        rank[i[0]]={"name": i[1], "earnings": i[2], "games_played": i[3], "minutes_played": i[4]}
+    return rank

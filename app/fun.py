@@ -344,7 +344,7 @@ def play_game():
         start_points_game[i]=players[i]["points"]
 
 
-    for ronda in range(1, rounds + 1):
+    for ronda in range(1, context_game["round"] + 1):
         setBets()
         cartas_keys = barajeo_carta(cartas.keys())
 
@@ -432,3 +432,67 @@ def play_game():
     #     print(player_game[i])
     # #
     # print(cardGame)
+
+
+#ordenar lista ranked
+def sorted_ranked(datos,keys,order_key):
+    for i in range(len(keys)):
+        for j in range(i+1,len(keys)):
+            if datos[keys[i]][order_key]<datos[keys[j]][order_key]:
+                keys[i],keys[j]=keys[j],keys[i]
+    return keys
+
+#opcion 4 ranking
+def ranking():
+    datos=get_ranking()
+    keys = list(datos.keys())
+    while True:
+        opcion=menus(ranking_menu)
+        if opcion==1:
+            keys=sorted_ranked(datos,keys,"earnings")
+        elif opcion==2:
+            keys = sorted_ranked(datos, keys, "games_played")
+        elif opcion==3:
+            keys = sorted_ranked(datos, keys, "minutes_played")
+        else:
+            break
+        encabezado=("*"*rank_tamaño).center(tamaño_pantalla)+"\n"+ \
+                   ("NIF".ljust(13)+"Name".ljust(25)+"Earnings".rjust(10)+"Games Played".rjust(15)+"Minutes Played".rjust(17)).center(tamaño_pantalla)+"\n"+ \
+                       ("*" * rank_tamaño).center(tamaño_pantalla) + "\n"
+        exit=False
+        pagina=0
+        show_max=10
+        while not exit:
+            rank=encabezado
+
+            #many = cantidad de personas que mostrara
+            if show_max*pagina+10>len(keys):
+                many=len(keys)-show_max*pagina
+            else:
+                many=10
+
+            for i in range(show_max*pagina,(show_max*pagina)+many):
+                rank+=(keys[i].ljust(13)+datos[keys[i]]["name"].ljust(25)+str(datos[keys[i]]["earnings"]).rjust(10)+str(datos[keys[i]]["games_played"]).rjust(15)+str(datos[keys[i]]["minutes_played"]).rjust(17)).center(tamaño_pantalla)+"\n"
+
+
+            msg="exit to go Rankings:"
+            if pagina-1>=0:
+                msg="- to go back, "+msg
+            if show_max*pagina+many+1<=len(keys):
+                msg="+ to go ahead, "+msg
+            while True:
+
+                opc=input(rank+"\n"+" ".ljust(20)+msg).upper()
+                if opc == "-" and "-" in msg:
+                    pagina -= 1
+                    break
+                elif opc == "+" and "+" in msg:
+                    pagina += 1
+                    break
+                elif opc == "EXIT":
+                    exit = True
+                    break
+                else:
+                    print("Invalid Option".center(tamaño_pantalla,"="))
+                    input("Press enter to continue".center(tamaño_pantalla))
+
