@@ -5,9 +5,11 @@ from database.datos import *
 #creacion de menus
 def menus(lista):
     while True:
+        menu=""
         for i in range(len(lista)):
-            print(str(i+1) + ") " + lista[i])
-        opt = input("\n-> Opcion: ")
+            menu+=" ".center(margen_player)+str(i+1) + ") " + lista[i]+"\n"
+        menu+=" ".center(margen_player) +"-> Opcion: "
+        opt =input(menu)
         if not opt.isdigit():
             print("Invalid Option. Please, use a number.")
             input("Press enter to continue.\n")
@@ -56,6 +58,7 @@ def setGamePriority(mazo_keys):
                 context_game["game"][j]=aux
     for i in range(len(context_game["game"])):
         players[context_game["game"][i]]["priority"]=i+1
+        players[context_game["game"][i]]["bank"]=False
     players[context_game["game"][-1]]["bank"]=True
 
 
@@ -66,7 +69,7 @@ def resetPoints():
 
 #llena diccionario players_game
 def fill_player_game(player_game,gameID,*fields):
-    player_game[gameID][fields[0]]={"initial_card":fields[1],"starting_points":fields[2],"ending_points":fields[3]}
+    player_game[gameID][fields[0]]={"initial_card":fields[1],"starting_points":fields[2],"ending_points":fields[3],"deck_id":fields[4]}
 
 
 #llena diccionario player_game_round
@@ -97,6 +100,8 @@ def orderAllPlayers():
                 orden[i],orden[j]=orden[j],orden[i]
     orden.append(mesa)
     context_game["game"]=orden
+
+
 #apuestas dependiendo al tipo de jugador
 def setBets():
     for i in context_game["game"]:
@@ -206,7 +211,6 @@ def pay_day(lista):
                     players[lista[0]]["points"]+=players[lista[0]]["bet"]*2
                     players[context_game["game"][-1]]["points"]-=players[lista[0]]["bet"]*2
 
-
             else:
                 if players[lista[0]]["bet"]>=players[context_game["game"][-1]]["points"]:
                     players[lista[0]]["points"]+=players[context_game["game"][-1]]["points"]
@@ -264,16 +268,15 @@ def recojerDatos(dato):
 
 
 #printa los datos de todos
-def gameStats(id=0):
+def gameStats(ronda=0,id=0):
     if id!=0:
-        print("Round {}, Turno de {}".format(context_game["round"], players[id]["name"]).center(tamaño_pantalla, "="))
-
+        print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "="))
     datos=recojerDatos(context_game["game"])
     input(datos)
 
 #retorna true si pide carta
 def pedir_carta(id,mazo):
-    if players[id]["roundPoints"]>7.5:
+    if players[id]["roundPoints"] > 7.5:
         print("You have exceeded the score limit!")
     else:
         info="Order card\nLa chance para exceed 7,5 = {} %\n Are you sure do you want to order another card? Y/y = yes , another key = no\n".format(calculaChance(id,mazo))
@@ -315,14 +318,15 @@ def kill_player():
 
 
 #ronda de humano
-def humanRound(id,mazo_keys):
+def humanRound(id,mazo_keys,ronda):
     opcion=0
     while opcion<5:
+        print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "=") + "\n")
         opcion = menus(humanRound_menu)
         if opcion == 1:
             viewStats(id)
         elif opcion == 2:
-            gameStats(id)
+            gameStats(ronda,id)
         elif opcion == 3:
             bets(id)
         elif opcion == 4:
@@ -334,13 +338,17 @@ def humanRound(id,mazo_keys):
 
 #jugar
 def play_game():
-
+    print(cartas)
+    print(context_game["game"])
+    if len(cartas)==0:
+        print("First choose a deck!")
+        return
     player_game = {}            # datos para exportar a  BBDD
     player_game_round = {}      # datos para exportar a BBDD
     cardGame = {}               # datos a exportar al BBDD
     game_id = getID()           # obtiene id dela BBDD
 
-
+    rondas_jugadas=0
     setGamePriority(cartas.keys())
     resetPoints()
     orderAllPlayers()
@@ -348,6 +356,7 @@ def play_game():
 
     # guarda puntos iniciales del juego
     start_points_game = {}
+    print(context_game["game"])
     for i in context_game["game"]:
         start_points_game[i]=players[i]["points"]
 
@@ -355,19 +364,19 @@ def play_game():
     for ronda in range(1, context_game["round"] + 1):
         setBets()
         cartas_keys = barajeo_carta(cartas.keys())
+        rondas_jugadas = ronda                      # rondas jugadas para cardGame
 
-        context_game["round"]=ronda
         #turnos de jugadores
         for i in context_game["game"]:
 
             if players[i]["human"]:
-                humanRound(i, cartas_keys)
+                humanRound(i, cartas_keys,ronda)
             else:
-                print("Round {}, Turno de {}".format(ronda, players[i]["name"]).center(tamaño_pantalla, "*"))
+                print("Round {}, Turno de {}".format(ronda, players[i]["name"]).center(tamaño_pantalla, "=") + "\n")
                 standarRound(i, cartas_keys)
-            gameStats(i)
+            gameStats(ronda,i)
         # fin dela ronda
-
+        # print(recojerDatos(context_game["game"]))
         # recopilacion de datos de ronda
 
         #guarda puntos iniciales de ronda
@@ -394,36 +403,33 @@ def play_game():
 
 
         print("Fin de la ronda {}.".format(ronda).center(tamaño_pantalla,"="))
-        print(gameStats())
-
+        gameStats()
         limpia_datos()
         orderAllPlayers()
         kill_player()
 
-        
+
 
         if not checkMinimun2PlayerWithPoints():
             break
 
     # fin dela partida
 
-    cardGame.update({"cardgame_id": game_id, "players": len(start_points_game), "start_hour": start_time,"rounds": context_game["round"], "end_hour": datetime.time(datetime.now())})
-
-    print(recojerDatos(context_game["game"]))
+    cardGame.update({"cardgame_id": game_id, "players": len(start_points_game), "start_hour": start_time,"rounds": rondas_jugadas, "end_hour": datetime.time(datetime.now()),"deck_id":context_game["deck_id"]})
     print("End dela partida!")
-    input("")
+    input()
 
     #datos de player_game
     player_game[game_id]={}
     for i in start_points_game.keys():
         player_game[game_id][i]={}
-        fill_player_game(player_game,game_id,i,players[i]["initialCard"],start_points_game[i],players[i]["points"])
+        fill_player_game(player_game,game_id,i,players[i]["initialCard"],start_points_game[i],players[i]["points"],context_game["deck_id"])
 
     # subir los datos dela partida ala BBDD
-    # insertCardGame(cardGame)
-    # insertarPlayGame(player_game)
-    # insertarPlayGameRound(player_game_round,game_id)
-
+    # print(player_game)
+    insertCardGame(cardGame)
+    insertarPlayGame(player_game)
+    insertarPlayGameRound(player_game_round,game_id)
 
 
     #prints de prueba
@@ -469,7 +475,6 @@ def ranking():
         show_max=10
         while not exit:
             rank=encabezado
-
             #many = cantidad de personas que mostrara
             if show_max*pagina+10>len(keys):
                 many=len(keys)-show_max*pagina
@@ -479,14 +484,12 @@ def ranking():
             for i in range(show_max*pagina,(show_max*pagina)+many):
                 rank+=(keys[i].ljust(13)+datos[keys[i]]["name"].ljust(25)+str(datos[keys[i]]["earnings"]).rjust(10)+str(datos[keys[i]]["games_played"]).rjust(15)+str(datos[keys[i]]["minutes_played"]).rjust(17)).center(tamaño_pantalla)+"\n"
 
-
             msg="exit to go Rankings:"
             if pagina-1>=0:
                 msg="- to go back, "+msg
             if show_max*pagina+many+1<=len(keys):
                 msg="+ to go ahead, "+msg
             while True:
-
                 opc=input(rank+"\n"+" ".ljust(20)+msg).upper()
                 if opc == "-" and "-" in msg:
                     pagina -= 1
@@ -500,4 +503,24 @@ def ranking():
                 else:
                     print("Invalid Option".center(tamaño_pantalla,"="))
                     input("Press enter to continue".center(tamaño_pantalla))
+
+
+def setGamePlayers():
+    dato=" ".center(50)+"Actual Players in game".center(61,"*")+"\n"
+    tipo= {30:"Cautious",40:"Moderated",50:"Bold"}
+    for i in context_game["game"]:
+        dato+=" ".center(52)+i.ljust(13)+players[i]["name"].ljust(25)+("human" if players[i]["human"]==1 else "Boot").ljust(10)+tipo[players[i]["type"]]+"\n"
+    print(dato)
+
+def set_cards_deck():
+    selected_deck=get_cards_deck()
+    choosen_cards = {}
+    context_game["deck_id"] = selected_deck[0][5]
+    for k in selected_deck:
+        choosen_cards[k[0]] = {"literal": k[1], "value": k[2], "priority": k[3], "realValue": k[4]}
+    print(choosen_cards)
+    input("")
+    cartas.clear()
+    cartas.update(choosen_cards)
+
 

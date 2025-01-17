@@ -1,5 +1,6 @@
 import pymysql
 
+
 #recolectar datos del SQL y devuelve la arrays (lista de tuplas)
 def select_query(query):
     try:
@@ -10,7 +11,7 @@ def select_query(query):
             password='Qu13r0#S3r#T0r3r0!',
             database='sevenandhalf'
         )
-        #print("Conexión exitosa a la base de datos")
+        print("Conexión exitosa a la base de datos")
 
         # Crear un cursor para ejecutar la consulta
         with connection.cursor() as cursor:
@@ -27,7 +28,7 @@ def select_query(query):
     finally:
         if 'connection' in locals() and connection:
             connection.close()
-            #print("Conexión cerrada")
+            print("Conexión cerrada")
 
 #para insertar a base de datos many=1 si insertaras varias rows
 def insert_query(query,data,many=1):
@@ -48,7 +49,7 @@ def insert_query(query,data,many=1):
             cursor.execute(query,data)
 
         conn.commit()  # Confirmar los cambios
-        #print("Datos insertados en la tabla partida")
+        print("Datos insertados en la tabla partida")
 
     except pymysql.MySQLError as e:
         print("Error al insertar datos:", e)
@@ -57,70 +58,6 @@ def insert_query(query,data,many=1):
         if conn:
             cursor.close()
             conn.close()
-
-
-#obtener datos dela carta
-def datos_cartas():
-    cartas = {"O01": {"literal": "1 de Oros", "value": 1, "priority": 4, "realValue": 1},
-              "O02": {"literal": "2 de Oros", "value": 2, "priority": 4, "realValue": 2},
-              "O03": {"literal": "3 de Oros", "value": 3, "priority": 4, "realValue": 3},
-              "O04": {"literal": "4 de Oros", "value": 4, "priority": 4, "realValue": 4},
-              "O05": {"literal": "5 de Oros", "value": 5, "priority": 4, "realValue": 5},
-              "O06": {"literal": "6 de Oros", "value": 6, "priority": 4, "realValue": 6},
-              "O07": {"literal": "7 de Oros", "value": 7, "priority": 4, "realValue": 7},
-              "O08": {"literal": "8 de Oros", "value": 8, "priority": 4, "realValue": 0.5},
-              "O09": {"literal": "9 de Oros", "value": 9, "priority": 4, "realValue": 0.5},
-              "O10": {"literal": "10 de Oros", "value": 10, "priority": 4, "realValue": 0.5},
-              "O11": {"literal": "11 de Oros", "value": 11, "priority": 4, "realValue": 0.5},
-              "O12": {"literal": "12 de Oros", "value": 12, "priority": 4, "realValue": 0.5},
-              "O13": {"literal": "13 de Oros", "value": 13, "priority": 4, "realValue": 0.5},
-
-              "C01": {"literal": "1 de Copas", "value": 1, "priority": 3, "realValue": 1},
-              "C02": {"literal": "2 de Copas", "value": 2, "priority": 3, "realValue": 2},
-              "C03": {"literal": "3 de Copas", "value": 3, "priority": 3, "realValue": 3},
-              "C04": {"literal": "4 de Copas", "value": 4, "priority": 3, "realValue": 4},
-              "C05": {"literal": "5 de Copas", "value": 5, "priority": 3, "realValue": 5},
-              "C06": {"literal": "6 de Copas", "value": 6, "priority": 3, "realValue": 6},
-              "C07": {"literal": "7 de Copas", "value": 7, "priority": 3, "realValue": 7},
-              "C08": {"literal": "8 de Copas", "value": 8, "priority": 3, "realValue": 0.5},
-              "C09": {"literal": "9 de Copas", "value": 9, "priority": 3, "realValue": 0.5},
-              "C10": {"literal": "10 de Copas", "value": 10, "priority": 3, "realValue": 0.5},
-              "C11": {"literal": "11 de Copas", "value": 11, "priority": 3, "realValue": 0.5},
-              "C12": {"literal": "12 de Copas", "value": 12, "priority": 3, "realValue": 0.5},
-              "C13": {"literal": "13 de Copas", "value": 13, "priority": 3, "realValue": 0.5},
-
-              "E01": {"literal": "1 de Espadas", "value": 1, "priority": 2, "realValue": 1},
-              "E02": {"literal": "2 de Espadas", "value": 2, "priority": 2, "realValue": 2},
-              "E03": {"literal": "3 de Espadas", "value": 3, "priority": 2, "realValue": 3},
-              "E04": {"literal": "4 de Espadas", "value": 4, "priority": 2, "realValue": 4},
-              "E05": {"literal": "5 de Espadas", "value": 5, "priority": 2, "realValue": 5},
-              "E06": {"literal": "6 de Espadas", "value": 6, "priority": 2, "realValue": 6},
-              "E07": {"literal": "7 de Espadas", "value": 7, "priority": 2, "realValue": 7},
-              "E08": {"literal": "8 de Espadas", "value": 8, "priority": 2, "realValue": 0.5},
-              "E09": {"literal": "9 de Espadas", "value": 9, "priority": 2, "realValue": 0.5},
-              "E10": {"literal": "10 de Espadas", "value": 10, "priority": 2, "realValue": 0.5},
-              "E11": {"literal": "11 de Espadas", "value": 11, "priority": 2, "realValue": 0.5},
-              "E12": {"literal": "12 de Espadas", "value": 12, "priority": 2, "realValue": 0.5},
-              "E13": {"literal": "13 de Espadas", "value": 13, "priority": 2, "realValue": 0.5},
-
-
-              "B01": {"literal": "1 de Bastos", "value": 1, "priority": 1, "realValue": 1},
-              "B02": {"literal": "2 de Bastos", "value": 2, "priority": 1, "realValue": 2},
-              "B03": {"literal": "3 de Bastos", "value": 3, "priority": 1, "realValue": 3},
-              "B04": {"literal": "4 de Bastos", "value": 4, "priority": 1, "realValue": 4},
-              "B05": {"literal": "5 de Bastos", "value": 5, "priority": 1, "realValue": 5},
-              "B06": {"literal": "6 de Bastos", "value": 6, "priority": 1, "realValue": 6},
-              "B07": {"literal": "7 de Bastos", "value": 7, "priority": 1, "realValue": 7},
-              "B08": {"literal": "8 de Bastos", "value": 8, "priority": 1, "realValue": 0.5},
-              "B09": {"literal": "9 de Bastos", "value": 9, "priority": 1, "realValue": 0.5},
-              "B10": {"literal": "10 de Bastos", "value": 10, "priority": 1, "realValue": 0.5},
-              "B11": {"literal": "11 de Bastos", "value": 11, "priority": 1, "realValue": 0.5},
-              "B12": {"literal": "12 de Bastos", "value": 12, "priority": 1, "realValue": 0.5},
-              "B13": {"literal": "13 de Bastos", "value": 13, "priority": 1, "realValue": 0.5}
-              }
-    return cartas
-import pymysql
-
 
 def datos_jugadores():
     datos=select_query("select * from player")
@@ -135,17 +72,17 @@ def insertarPlayGame(player_game):
     for i in player_game:
         for j in player_game[i]:
             data.append((i, j, player_game[i][j]["initial_card"], player_game[i][j]["starting_points"],
-                           player_game[i][j]["ending_points"]))
+                           player_game[i][j]["ending_points"],player_game[i][j]["deck_id"]))
     query="""
-    INSERT INTO player_game (game_id, nif, initial_card, starting_points, ending_points)
-    VALUES (%s,%s,%s,%s,%s)
+    INSERT INTO player_game (game_id, nif, initial_card, starting_points, ending_points,deck_id)
+    VALUES (%s,%s,%s,%s,%s,%s)
     """
     insert_query(query,data)
 
 def insertCardGame(cardGame):
-    data = (cardGame["cardgame_id"],cardGame["players"],cardGame["start_hour"],cardGame["rounds"],cardGame["end_hour"],1)
+    data = (cardGame["cardgame_id"],cardGame["players"],cardGame["start_hour"],cardGame["rounds"],cardGame["end_hour"],cardGame["deck_id"])
     query="""
-    INSERT INTO game (game_id, number_of_players, start_time, rounds, end_time, deck)
+    INSERT INTO game (game_id, number_of_players, start_time, rounds, end_time, deck_id)
     VALUES (%s,%s,%s,%s,%s,%s)
     """
     insert_query(query,data,0)
@@ -174,25 +111,6 @@ def getID():
 
     return dato
 
-
-def set_max_rounds():
-    print("\n--- Set Max Rounds ---")
-    while True:
-        max_rounds = input("Enter the number of maximum rounds (1-30): ")
-        if max_rounds.isdigit():
-            max_rounds = int(max_rounds)
-            if max_rounds >= 1 and max_rounds <= 30:
-                print(f"Maximum rounds set to {max_rounds}.")
-                context_game["round"]=max_rounds
-                break
-            else:
-                print("Please enter a number between 1 and 30.")
-        else:
-            print("Invalid input. Please enter a number.")
-
-
-
-#Query del ranking
 def get_ranking():
     query="""
     SELECT o.nif,o.name,sum(e.ending_points-e.starting_points),count(p.game_id),sum(timestampdiff(second,p.start_time,p.end_time)/60) FROM player o
@@ -201,17 +119,15 @@ def get_ranking():
     group by o.nif,o.name
     """
     dato=select_query(query)
-    print(dato)
-    input()
+    # print(dato)
+    # input()
     rank={}
     for i in dato:
         rank[i[0]]={"name": i[1], "earnings": i[2], "games_played": i[3], "minutes_played": i[4]}
     return rank
 
-
-
 # Función para definir el deck con el que se jugará la partida
-def set_cards_deck():
+def get_cards_deck():
     # las opciones (esto se usará luego con la función de menús)
     print("\n--- Set Card's Deck ---")
     dato=select_query("select * from deck")
@@ -235,9 +151,5 @@ def set_cards_deck():
         else:
             print("Invalid option. Please choose a number between 1 and 3.")
     selected_deck = select_query(f"select * from card WHERE deck_id = {option}")
-    #print(selected_deck)
-    choosen_cards = {}
-    context_game["deck_id"]=selected_deck[0][5]
-    for k in selected_deck:
-        choosen_cards[k[0]]={"name": k[1], "value": k[2], "priority": k[3], "real_value": k[4]}
-    cartas.update(choosen_cards)
+    return selected_deck
+
