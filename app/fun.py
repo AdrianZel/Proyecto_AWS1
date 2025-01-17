@@ -264,7 +264,10 @@ def recojerDatos(dato):
 
 
 #printa los datos de todos
-def gameStats():
+def gameStats(id=0):
+    if id!=0:
+        print("Round {}, Turno de {}".format(context_game["round"], players[id]["name"]).center(tamaño_pantalla, "="))
+
     datos=recojerDatos(context_game["game"])
     input(datos)
 
@@ -353,14 +356,16 @@ def play_game():
         setBets()
         cartas_keys = barajeo_carta(cartas.keys())
 
+        context_game["round"]=ronda
         #turnos de jugadores
         for i in context_game["game"]:
-            print("Round {}, Turno de {}".format(ronda,players[i]["name"]).center(tamaño_pantalla,"*")+"\n")
+
             if players[i]["human"]:
                 humanRound(i, cartas_keys)
             else:
+                print("Round {}, Turno de {}".format(ronda, players[i]["name"]).center(tamaño_pantalla, "*"))
                 standarRound(i, cartas_keys)
-        gameStats()
+            gameStats(i)
         # fin dela ronda
 
         # recopilacion de datos de ronda
@@ -395,7 +400,7 @@ def play_game():
         orderAllPlayers()
         kill_player()
 
-        context_game["round"]=ronda
+        
 
         if not checkMinimun2PlayerWithPoints():
             break
