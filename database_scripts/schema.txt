@@ -1,0 +1,88 @@
+-- Crear el esquema
+DROP SCHEMA IF EXISTS sevenandhalf;
+CREATE SCHEMA sevenandhalf COLLATE = utf8_general_ci;
+USE sevenandhalf;
+
+-- Tabla 'baraja': Información de los tipos de baraja
+CREATE TABLE deck (
+    deck_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL, -- Nombre descriptivo de la baraja
+    description VARCHAR(100) NOT NULL    -- Tipo de baraja (e.g., 40 cartas, 48 cartas)
+);
+
+-- Tabla 'carta': Información de las cartas de cada baraja
+CREATE TABLE card (
+    card_id VARCHAR(3), -- ID único para cada carta
+    name VARCHAR(50) NOT NULL,     -- Nombre literal de la carta
+    value INT NOT NULL,             -- Valor real de la carta (?)
+	priority INT NOT NULL,        -- Prioridad del palo (1 a 4)
+    real_value FLOAT NOT NULL,          -- Valor dentro del juego 
+    deck_id INT NOT NULL,          -- Referencia a la baraja
+    PRIMARY KEY (deck_id, card_id),
+    FOREIGN KEY (deck_id) REFERENCES deck(deck_id)
+);
+
+-- Tabla 'partida': Información general de las partidas
+CREATE TABLE game (
+    game_id INT AUTO_INCREMENT PRIMARY KEY,
+    start_time TIME NOT NULL, -- Fecha y hora de inicio
+    end_time TIME NOT NULL,             -- Fecha y hora de finalización
+    number_of_players INT NOT NULL, -- Número de jugadores
+    deck_id INT NOT NULL,           -- Baraja usada (referencia a baraja)
+    rounds INT NOT NULL,           -- Número de rondas jugadas
+    FOREIGN KEY (deck_id) REFERENCES deck(deck_id),
+    CHECK (end_time > start_time) -- Validación de fechas
+);
+
+-- Tabla 'jugador': Información de los jugadores
+CREATE TABLE player (
+    nif VARCHAR(10) PRIMARY KEY,   -- Identificador único del jugador
+    name VARCHAR(25) NOT NULL,  -- Nombre del jugador
+    type INT NOT NULL, -- Perfil de riesgo
+    human BOOLEAN NOT NULL       -- Si es humano o bot
+);
+
+-- Tabla 'jugador_partida': Relación entre jugadores y partidas
+CREATE TABLE player_game (
+    game_id INT NOT NULL,
+    nif VARCHAR(10) NOT NULL,
+    initial_card VARCHAR(3) NOT NULL, -- Carta inicial asignada al jugador
+    deck_id INT NOT NULL,             -- Baraja a la que pertenece la carta
+    starting_points INT NOT NULL,     -- Puntos iniciales de la partida
+    ending_points INT NOT NULL,       -- Puntos finales de la partida
+    PRIMARY KEY (game_id, nif),
+    FOREIGN KEY (game_id) REFERENCES game(game_id),
+    FOREIGN KEY (nif) REFERENCES player(nif),
+    FOREIGN KEY (deck_id, initial_card) REFERENCES card(deck_id, card_id)
+);
+
+-- Tabla 'jugador_partida_ronda': Detalle de cada jugador en cada ronda
+CREATE TABLE player_round_game (
+    game_id INT NOT NULL,
+    round_id INT NOT NULL,
+	nif VARCHAR(10) NOT NULL,
+    is_bank BOOLEAN NOT NULL,         -- Si es banca en esta ronda
+    bet INT NOT NULL,              -- Apuesta realizada
+    starting_round_points INT NOT NULL, -- Puntos al inicio de la ronda
+    ending_round_points INT NOT NULL,            -- Puntos al final de la ronda
+    card_points INT NOT NULL,                 -- Puntos obtenidos por cartas
+    PRIMARY KEY (game_id, round_id, nif),
+    FOREIGN KEY (nif) REFERENCES player(nif),
+    FOREIGN KEY (game_id) REFERENCES game(game_id)
+);
+
+-- Vista para ranking de jugadores
+-- Crear la vista de ranking
+CREATE OR REPLACE VIEW ranking AS
+SELECT
+    p.nif AS player_id,
+    p.name AS player_name,
+    COUNT(DISTINCT pg.game_id) AS played_games, -- Total de partidas jugadas por el jugador
+    SUM(pg.ending_points - pg.starting_points) AS earnings, -- Ganancias obtenidas
+    SUM(TIMESTAMPDIFF(MINUTE, g.start_time, g.end_time)) AS minutes_played -- Minutos jugados
+FROM player p
+JOIN player_game pg ON p.nif = pg.nif -- Relación entre jugadores y partidas
+JOIN game g ON pg.game_id = g.game_id -- Relación entre partidas y juegos
+GROUP BY p.nif, p.name;
+
+
