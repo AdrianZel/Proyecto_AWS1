@@ -207,3 +207,37 @@ def get_ranking():
     for i in dato:
         rank[i[0]]={"name": i[1], "earnings": i[2], "games_played": i[3], "minutes_played": i[4]}
     return rank
+
+
+
+# Función para definir el deck con el que se jugará la partida
+def set_cards_deck():
+    # las opciones (esto se usará luego con la función de menús)
+    print("\n--- Set Card's Deck ---")
+    dato=select_query("select * from deck")
+    question=""
+    for i in dato:
+        question=str(i[0])+") " + i[1] + ": " + i[2]
+        print(question)
+    while True:
+        option = input("Choose a deck (1-3): ")
+        if option.isdigit() and int(option) >= 1 and int(option) <= 3:
+            option = int(option)
+            if option == 1:
+                print(str(dato[option-1][1]) + " selected.")
+                break
+            elif option == 2:
+                print(str(dato[option-1][1]) + " selected.")
+                break
+            elif option == 3:
+                print(str(dato[option-1][1]) + " selected.")
+                break
+        else:
+            print("Invalid option. Please choose a number between 1 and 3.")
+    selected_deck = select_query(f"select * from card WHERE deck_id = {option}")
+    #print(selected_deck)
+    choosen_cards = {}
+    context_game["deck_id"]=selected_deck[0][5]
+    for k in selected_deck:
+        choosen_cards[k[0]]={"name": k[1], "value": k[2], "priority": k[3], "real_value": k[4]}
+    cartas.update(choosen_cards)
