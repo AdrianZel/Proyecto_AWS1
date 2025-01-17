@@ -2,10 +2,9 @@ from database.fun_datos import *
 
 cartas=datos_cartas()               #cartas dela base de datos+
 players=datos_jugadores()           #jugadores de base de datos
-total_de_cartas=len(cartas)         #Numero de cartas
-context_game={"game":list(players.keys()),"round":5}   #diccionario global de uso
+context_game={"game":list(players.keys())[:4],"round":5}   #diccionario global de uso
 # context_game={"game":[],"round":1}   #diccionario global de uso
-print(players)
+#print(players)
 
 # Tamaño de menus
 tamaño_pantalla=150   #divisores de 50

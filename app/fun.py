@@ -85,11 +85,18 @@ def checkMinimun2PlayerWithPoints():
 
 #ordenar gamecontext por orden de prioridad
 def orderAllPlayers():
-    for i in range(len(context_game["game"])):
-        for j in range(i+1,len(context_game["game"])):
-            if players[context_game["game"][i]]["priority"]>players[context_game["game"][j]]["priority"]:
-                context_game["game"][i],context_game["game"][j]=context_game["game"][j],context_game["game"][i]
-
+    orden=[]
+    for i in context_game["game"]:
+        if not players[i]["bank"]:
+            orden.append(i)
+        else:
+            mesa=i
+    for i in range(len(orden)):
+        for j in range(i+1,len(orden)):
+            if players[orden[i]]["priority"]>players[orden[j]]["priority"]:
+                orden[i],orden[j]=orden[j],orden[i]
+    orden.append(mesa)
+    context_game["game"]=orden
 #apuestas dependiendo al tipo de jugador
 def setBets():
     for i in context_game["game"]:
@@ -257,19 +264,21 @@ def recojerDatos(dato):
 
 
 #printa los datos de todos
-def gameStats(id):
-    datos="Round {}, Turno de {}".format(round,players[id]["name"]).center(tamaño_pantalla,"*")+"\n"
+def gameStats():
     datos=recojerDatos(context_game["game"])
     input(datos)
 
 #retorna true si pide carta
 def pedir_carta(id,mazo):
-    info="Order card\nLa chance para exceed 7,5 = {} %\n Are you sure do you want to order another card? Y/y = yes , another key = no\n".format(calculaChance(id,mazo))
-    opcion=input(info).upper()
-    if opcion == "Y":
-        players[id]["cards"].append(mazo[-1])
-        players[id]["roundPoints"]+=cartas[mazo[-1]]["realValue"]
-        mazo.pop(-1)
+    if players[id]["roundPoints"]>7.5:
+        print("You have exceeded the score limit!")
+    else:
+        info="Order card\nLa chance para exceed 7,5 = {} %\n Are you sure do you want to order another card? Y/y = yes , another key = no\n".format(calculaChance(id,mazo))
+        opcion=input(info).upper()
+        if opcion == "Y":
+            players[id]["cards"].append(mazo[-1])
+            players[id]["roundPoints"]+=cartas[mazo[-1]]["realValue"]
+            mazo.pop(-1)
 
 def bets(id):
     if players[id]["bank"]:
@@ -314,11 +323,7 @@ def humanRound(id,mazo_keys):
         elif opcion == 3:
             bets(id)
         elif opcion == 4:
-            if players[id]["roundPoints"] > 7.5:
-                print("You have exceeded the score limit!")
-            else:
-                print(mazo_keys)
-                pedir_carta(id, mazo_keys)
+            pedir_carta(id, mazo_keys)
         elif opcion == 5:
             standarRound(id, mazo_keys)
         else:
@@ -350,14 +355,12 @@ def play_game():
 
         #turnos de jugadores
         for i in context_game["game"]:
-            print("Ronda {} Turno de {}".format(ronda, players[i]["name"]))
-            print(recojerDatos(context_game["game"]))
-            input("")
+            print("Round {}, Turno de {}".format(ronda,players[i]["name"]).center(tamaño_pantalla,"*")+"\n")
             if players[i]["human"]:
                 humanRound(i, cartas_keys)
             else:
                 standarRound(i, cartas_keys)
-
+        gameStats()
         # fin dela ronda
 
         # recopilacion de datos de ronda
@@ -378,18 +381,15 @@ def play_game():
             fill_player_game_round(player_game_round, ronda, i, players[i]["bank"], players[i]["bet"], start_points_round[i],
                                    players[i]["roundPoints"], players[i]["points"])
 
-        #Cambia la banca y la prioridad en caso de cambio
+        #Cambia la banca
         if len(bank_candidates) != 0:
             if bank_candidates[-1] != context_game["game"][-1]:
                 players[bank_candidates[-1]]["bank"], players[context_game["game"][-1]]["bank"] = \
                 players[context_game["game"][-1]]["bank"], players[bank_candidates[-1]]["bank"]
 
-                players[bank_candidates[-1]]["priority"], players[context_game["game"][-1]]["priority"] = \
-                players[context_game["game"][-1]]["priority"], players[bank_candidates[-1]]["priority"]
 
-        print("Fin de la ronda {}.".format(ronda))
-        print(recojerDatos(context_game["game"]))
-        input("")
+        print("Fin de la ronda {}.".format(ronda).center(tamaño_pantalla,"="))
+        print(gameStats())
 
         limpia_datos()
         orderAllPlayers()
