@@ -341,7 +341,7 @@ def play_game():
     print(cartas)
     print(context_game["game"])
     if len(cartas)==0:
-        print("First choose a deck!")
+        input("First choose a deck!...".center(tamaño_pantalla))
         return
     player_game = {}            # datos para exportar a  BBDD
     player_game_round = {}      # datos para exportar a BBDD
@@ -432,18 +432,6 @@ def play_game():
     insertarPlayGameRound(player_game_round,game_id)
 
 
-    #prints de prueba
-    # for i in player_game_round:
-    #     print(i)
-    #     print(player_game_round[i])
-    #
-    # print("")
-    # for i in player_game:
-    #     print(i)
-    #     print(player_game[i])
-    # #
-    # print(cardGame)
-
 
 #ordenar lista ranked
 def sorted_ranked(datos,keys,order_key):
@@ -505,12 +493,61 @@ def ranking():
                     input("Press enter to continue".center(tamaño_pantalla))
 
 
-def setGamePlayers():
+
+def showActualPlayers():
     dato=" ".center(50)+"Actual Players in game".center(61,"*")+"\n"
-    tipo= {30:"Cautious",40:"Moderated",50:"Bold"}
     for i in context_game["game"]:
         dato+=" ".center(52)+i.ljust(13)+players[i]["name"].ljust(25)+("human" if players[i]["human"]==1 else "Boot").ljust(10)+tipo[players[i]["type"]]+"\n"
-    print(dato)
+    input(dato+"\n"+"Enter to continue...".rjust(72))
+
+def setGamePlayers():
+    exit=False
+    showActualPlayers()
+    data=datos_jugadores()
+    cabezera="Select Players".center(tamaño_pantalla,"=")+"\n"+\
+            "Boot Players".center(media_pantalla)+"||"+"Human Players".center(media_pantalla)+"\n"+\
+            "".center(tamaño_pantalla,"-")+"\n"\
+            "ID".ljust(25)+"Name".ljust(25)+"Type".ljust(26)+"||"+"ID".ljust(25)+"Name".ljust(25)+"Type".ljust(25)+"\n"+\
+            "".center(tamaño_pantalla,"=")+"\n"
+    while not exit:
+        info=cabezera
+        human=[]
+        bot=[]
+        for i in data:
+            if i not in context_game["game"]:
+                if data[i]["human"]:
+                    human.append(i)
+                else:
+                    bot.append(i)
+        largo_min=(len(human) if len(human)<len(bot) else len(bot))
+        for i in range(largo_min):
+            info+=bot[i].ljust(25)+data[bot[i]]["name"].ljust(25)+tipo[data[bot[i]]["type"]].ljust(25)+"||"+human[i].ljust(25)+data[human[i]]["name"].ljust(25)+tipo[data[human[i]]["type"]].ljust(25)+"\n"
+        if largo_min==len(human):
+            for i in range(largo_min,len(bot)):
+                info+=bot[i].ljust(25)+data[bot[i]]["name"].ljust(25)+tipo[data[bot[i]]["type"]].ljust(25)+"||"+"\n"
+        else:
+            for i in range(largo_min, len(human)):
+                info+=" ".ljust(75)+"||"+human[i].ljust(25)+data[human[i]]["name"].ljust(25)+tipo[data[human[i]]["type"]].ljust(25)+"\n"
+        info+="=".center(tamaño_pantalla)+"\n"+"Option (id to add to game, -id to remove player, sh to show actual players in game, -1 to go back:".center(tamaño_pantalla)
+        while True:
+            opcion=input(info).upper()
+            if len(opcion)<1:
+                input("Invalid Option".center(tamaño_pantalla) + "\n" + "Enter to continue".center(tamaño_pantalla))
+            elif opcion[0]=="-" and opcion[1:]=="1":
+                exit=True
+                break
+            elif opcion[0]=="-" and opcion[1:] in context_game["game"]:
+                context_game["game"].remove(opcion[1:])
+                showActualPlayers()
+                break
+            elif opcion[0]!="-" and opcion in data.keys() and opcion not in context_game["game"]:
+                context_game["game"].append(opcion)
+                showActualPlayers()
+                break
+            elif opcion=="SH":
+                showActualPlayers()
+            else:
+                input("Invalid Option".center(tamaño_pantalla)+"\n"+"Enter to continue".center(tamaño_pantalla))
 
 def set_cards_deck():
     selected_deck=get_cards_deck()
@@ -522,5 +559,44 @@ def set_cards_deck():
     input("")
     cartas.clear()
     cartas.update(choosen_cards)
+
+def setRounds():
+    while True:
+        rounds=input(" ".ljust(70)+"Max Round: ")
+        if not rounds.isdigit():
+            print(" ".ljust(70)+"Please, Dont be stupid")
+        elif int(rounds) not in range(1,21):
+            print(" ".ljust(70)+"The max rounds has to be  between 0 and 20")
+        else:
+            print(" ".ljust(70)+f"Established maximum of rounds to {rounds}")
+            context_game["round"]=int(rounds)
+            break
+def setting():
+    while True:
+        opcion=menus(settings_menu)
+        if opcion==1:
+            setGamePlayers()
+        elif opcion==2:
+            set_cards_deck()
+        elif opcion==3:
+            setRounds()
+        else:
+            break
+
+def SevenandHalf():
+    while True:
+        opcion=menus(main_menu)
+        if opcion==1:
+            input("Loading...")
+        elif opcion==2:
+            setting()
+        elif opcion==3:
+            play_game()
+        elif opcion==4:
+            ranking()
+        elif opcion==5:
+            input("Loading...")
+        else:
+            break
 
 

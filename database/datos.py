@@ -15,6 +15,7 @@ context_game={"game":list(players.keys())[:4],"round":1,"deck_id":1}   #dicciona
 
 # Tamaño de menus
 tamaño_pantalla=150   #divisores de 50
+media_pantalla=75
 margen_player=int(tamaño_pantalla*0.4)
 espaciado_player=int(tamaño_pantalla*0.1)
 
@@ -24,6 +25,7 @@ espaciado_game=int(tamaño_pantalla*0.3)
 rank_tamaño=90
 
 players_values=("name","type","human","bank","initialCard","priority","bet","points","cards","roundPoints")
+tipo= {30:"Cautious",40:"Moderated",50:"Bold"}
 #tamaño de menus
 
 max_players=6
