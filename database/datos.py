@@ -1,11 +1,17 @@
 from database.fun_datos import *
-
-cartas=datos_cartas()               #cartas dela base de datos+
+from datetime import datetime
+cartas= {}              #cartas dela base de datos+
 players=datos_jugadores()           #jugadores de base de datos
-total_de_cartas=len(cartas)         #Numero de cartas
-context_game={"game":list(players.keys()),"round":5}   #diccionario global de uso
+# total_de_cartas=len(cartas)         #Numero de cartas
+
+
+#agregar jugadores nuevos context_game["game"]=["jugadores nuevos"]
+
 # context_game={"game":[],"round":1}   #diccionario global de uso
-print(players)
+
+#contex_game para pruebas
+context_game={"game":list(players.keys())[:4],"round":1,"deck_id":1}   #diccionario global de uso
+
 
 # Tamaño de menus
 tamaño_pantalla=150   #divisores de 50
@@ -19,18 +25,18 @@ espaciado_player=int(tamaño_pantalla*0.1)
 
 margen_game=int(tamaño_pantalla*0.1)
 espaciado_game=int(tamaño_pantalla*0.3)
+
 rank_tamaño=90
+
+players_values=("name","type","human","bank","initialCard","priority","bet","points","cards","roundPoints")
+tipo= {30:"Cautious",40:"Moderated",50:"Bold"}
 #tamaño de menus
 
-#values de players
-players_values=("name","type","human","bank","initialCard","priority","bet","points","cards","roundPoints")
-
-
-
-#maximo jugadores
 max_players=6
 
 # LISTAS PARA GENERAR LOS MENÚS DEL JUEGO
+humanRound_menu=["View Stats","View Game Stats","Set Bet","Order Card","Automatic Play","Stand"]
+
 main_menu = ["Add/Remove/Show Players", "Settings", "Play Game", "Ranking", "Reports", "Exit"]
 player_menu = ["New Human Player","New Boot","Show/Remove Players","Go back"]
 select_profile_menu = ["Cautious", "Moderated", "Bold"]
@@ -47,9 +53,6 @@ reports_menu = ["Initial card more repeated by each user, \nonly users who have 
                 "Average bet of the first round of each game.",
                 "Average bet of the last round of each game.",
                 "Go back"]
-humanRound_menu=["View Stats","View Game Stats","Set Bet","Order Card","Automatic Play","Stand"]
-
-
 
 
 
