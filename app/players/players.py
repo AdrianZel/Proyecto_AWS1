@@ -59,7 +59,8 @@ def arm_players(option):
         if confirm:
             player = [dni, name, profile, 1]
             insertaPlayer(player)
-            players = datos_jugadores()
+            players.clear()
+            players.update(datos_jugadores())
 
 
     elif option == 2:
@@ -88,13 +89,15 @@ def arm_players(option):
         if confirm:
             player = [dni, name, profile, 0]
             insertaPlayer(player)
-            players = datos_jugadores()
+            players.clear()
+            players.update(datos_jugadores())
 
     elif option == 3:
 
         showHeaderSRPlayer()
         if not (type(players) is dict):
-            players = datos_jugadores()
+            players.clear()
+            players.update(datos_jugadores())
 
         list_bots = []
         list_humans = []
@@ -108,28 +111,22 @@ def arm_players(option):
         max_length = len(list_humans) if len(list_humans) > len(list_bots) else len(list_bots)
         print_from_two_lists(("ID","Name","Type"),("ID","Name","Type"))
 
-        # print("{}{}{}|| {}{}{}".format("ID".ljust(21),
-        #                                     "Name".ljust(26),
-        #                                     "Type".ljust(26),
-        #                                     "ID".ljust(21),
-        #                                     "Name".ljust(26),
-        #                                     "Type".ljust(26)))
         print(ASTERISKS_LINE)
 
         for i in range(max_length):
             if not i < len(list_bots):
-                list_bots.append((' ', ' ', ' '))
-
-            if not i < len(list_humans):
-                list_humans.append((' ', ' ', ' '))
-
-            print_from_two_lists(list_bots[i], list_humans[i])
+                print_from_two_lists((' ', ' ', ' '), list_humans[i])
+            elif not i < len(list_humans):
+                print_from_two_lists(list_bots[i], (' ', ' ', ' '))
+            else:
+                print_from_two_lists(list_bots[i], list_humans[i])
 
         print(ASTERISKS_LINE)
 
         remove_player_listen = remove_player()
         if remove_player_listen:
-            players = datos_jugadores()
+            players.clear()
+            players.update(datos_jugadores())
 
 
         input("Enter to Continue")
