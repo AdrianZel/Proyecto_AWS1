@@ -134,15 +134,16 @@ def arm_players(option):
 
 def remove_player():
     global players
-    print("Option ( -id to remove player, -1 to exit):".center(FULL_SCREEN))
-    dni = input( " ".center(HALF_SCREEN-22) )
+    msg_opt="Option ( -id to remove player, -1 to exit):"
+    print(msg_opt.center(FULL_SCREEN))
+    dni = input( " ".center(HALF_SCREEN-(len(msg_opt)//2)) )
     while not ((dni == "-1") or (dni[:1] == "-" and dniValidate(dni[1:]) and dni[1:] in players.keys()) ):
         print(" Invalid Option ".center(FULL_SCREEN,"="))
 
         input("Enter to Continue")
 
-        print("Option ( -id to remove player, -1 to exit):".center(FULL_SCREEN))
-        dni = input(" ".center(HALF_SCREEN -22))
+        print(msg_opt.center(FULL_SCREEN))
+        dni = input(" ".center(HALF_SCREEN-(len(msg_opt)//2)))
 
     player_name = players[dni[1:]]['name']
 
