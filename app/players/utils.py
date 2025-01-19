@@ -1,5 +1,5 @@
 import random
-from database.datos import select_profile_menu, FULL_SCREEN
+from database.datos import select_profile_menu, players, FULL_SCREEN
 from app.fun import menus
 
 def setName():
