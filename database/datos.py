@@ -13,6 +13,7 @@ FULL_SCREEN = 150   #divisores de 50
 ASTERISKS_LINE = "*" * FULL_SCREEN
 HORIZONTAL_LINE = "-" * FULL_SCREEN
 HALF_SCREEN = int(FULL_SCREEN*0.5)
+media_pantalla=75
 margen_player=int(tamaño_pantalla*0.4)
 espaciado_player=int(tamaño_pantalla*0.1)
 
