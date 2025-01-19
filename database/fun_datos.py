@@ -164,6 +164,19 @@ def insertarPlayGameRound(player_game_round, game_id):
             """
     insert_query(query,data)
 
+def insertaPlayer(player):
+    query="""
+        INSERT INTO player (nif, name, type, human) VALUES (%s,%s,%s,%s) 
+    """
+    insert_query(query, player,0)
+
+def deletePlayer(nif):
+    query="""
+        DELETE FROM player WHERE nif = %s
+    """
+    insert_query(query, (nif,),0)
+
+
 def getID():
     dato=select_query("select max(game_id) from game")
     dato = list(dato)[0][0]
