@@ -15,6 +15,10 @@ context_game={"game":list(players.keys())[:4],"round":1,"deck_id":1}   #dicciona
 
 # Tamaño de menus
 tamaño_pantalla=150   #divisores de 50
+FULL_SCREEN = 150   #divisores de 50
+ASTERISKS_LINE = "*" * FULL_SCREEN
+HORIZONTAL_LINE = "-" * FULL_SCREEN
+HALF_SCREEN = int(FULL_SCREEN*0.5)
 media_pantalla=75
 margen_player=int(tamaño_pantalla*0.4)
 espaciado_player=int(tamaño_pantalla*0.1)
@@ -34,6 +38,8 @@ max_players=6
 humanRound_menu=["View Stats","View Game Stats","Set Bet","Order Card","Automatic Play","Stand"]
 
 main_menu = ["Add/Remove/Show Players", "Settings", "Play Game", "Ranking", "Reports", "Exit"]
+player_menu = ["New Human Player","New Boot","Show/Remove Players","Go back"]
+select_profile_menu = ["Cautious", "Moderated", "Bold"]
 settings_menu = ["Set Game Players", "Set Card's Deck", "Set Max Rounds (Default 5 Rounds)", "Go Back"]
 ranking_menu =  ["Player With More Earnings", "Players With More Games Played", "Players With More Minutes Played", "Go Back"]
 reports_menu = ["Initial card more repeated by each user, \nonly users who have played a minimum of 3 games.",
