@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Metadatos principales -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del 7 y Medio</title>
+
+    <!-- Estilo principal -->
+    <link rel="stylesheet" href="../css/styles4.css">
+
+     <!-- Favicon del sitio -->
+     <link rel="icon" type="image/png" href="../images/favicon.png">
+
+    <!-- Fuentes externas (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Encabezado -->
+    <header>
+        <!-- Contenedor del icono decorativo -->
+        <div class="icon-container">
+            <img src="../images/icono mini.webp" alt="Icono decorativo" class="hero-icon">
+        </div>
+
+        <!-- Menú de navegación -->
+        <nav>
+            <img src="../images/fondo1.jpg" alt="Fondo decorativo" class="hero-icon">
+            <ul class="menu">
+                <li><a href="1indice.html">ÍNDICE</a></li>
+                <li><a href="2tutorial.html">TUTORIAL</a></li>
+                <li><a href="3equipo.html">EQUIPO</a></li>
+                <li><a href="4documentacion.html">DOCUMENTACIÓN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="fondo-equip">
+        <!-- Sección de documentación -->
+        <section class="documentacion-info">
+            <div class="titulo-pagina">
+                <h1>Documentación</h1>
+            </div>
+        </section>
+
+        <!-- Contenido explicativo -->
+        <main>
+            <div class="teoria-card">
+                <h2>LÓGICA DE LA BANCA</h2>
+                <img src="../images/banca.webp" alt="Lógica de la banca" style="width: 30%; height: auto; margin-bottom: 20px;">
+                <p>
+                    Nuestra banca tiene cuatro <strong>“reglas”</strong> o <strong>“condiciones”</strong> que determinan si pide una carta o no. La primera de estas reglas es un filtro que mira la situación de todos los jugadores y la propia banca; las otras tres reglas son filtros adicionales que se activan cuando el primer filtro no se cumple.
+                </p>
+                <h3>Primer filtro: ¿La banca gana sin pedir carta?</h3>
+                <p>
+                    Dado que la banca siempre es la última en jugar, cuenta con ciertas ventajas estratégicas a la hora de tomar decisiones en la partida. Es por eso que en nuestro código hemos tenido que contemplar lo siguiente:
+                </p>
+                <ul>
+                    <li>La banca se fija en todos los puntos de la mesa (los de cada jugador) y comprueba si ya tiene la victoria asegurada.</li>
+                    <li>Esto puede ocurrir aunque la banca no tenga ni una sola carta: si todos los jugadores se han pasado de 7.5, la banca ya gana la ronda sin hacer nada.</li>
+                    <li>Si, de un modo u otro, la banca ve que no necesita arriesgarse para vencer (por ejemplo, porque con su puntuación actual supera a todos los que siguen en juego), <strong>no pide carta</strong>.</li>
+                </ul>
+                <h4>Ejemplo:</h4>
+                <p>
+                    Si la banca es de tipo intermedio y tiene una probabilidad del 40% de pasarse, podría decidir arriesgarse si su puntuación actual es más baja que la de los demás jugadores en juego. Sin embargo, si quedarse quieta significa perder seguro, la banca se arriesga.
+                </p>
+    
+                <h3>Segundo conjunto de reglas: los tres filtros que indican “pide carta”</h3>
+                <p>
+                    Si la banca detecta que no está ganando con la situación actual (es decir, no se cumple el primer filtro), entonces aplica estos tres nuevos filtros. Es muy importante tener en cuenta que, con que uno de ellos se cumpla, la banca decidirá pedir carta:
+                </p>
+                <ul>
+                    <li>
+                        <strong>La probabilidad de exceder 7.5 puntos:</strong> La banca se “clasifica” como agresiva, intermedia o pasiva según el tipo de jugador que le haya sido asignado (siendo 50% para agresivo, 40% para intermedio y 30% para pasivo). En función de estos porcentajes se define la personalidad del jugador a la hora de jugar o de arriesgarse.
+                    </li>
+                    <li>
+                        <strong>Va perdiendo con todos:</strong> Si ningún jugador se ha pasado y la banca contempla que su puntuación actual es más baja que la de todos los demás en juego, está obligada a arriesgarse para no perder la ronda. 
+                    </li>
+                    <li>
+                        <strong>Puede perder todos sus puntos restantes:</strong> Si la banca se encuentra en una situación en la que, de no mejorar su puntuación, va a perder todos los puntos que le quedan, decide jugársela al máximo.
+                    </li>
+                </ul>
+                <h4>Ejemplo:</h4>
+                <p>
+                    Si la banca es un jugador de tipo intermedio (40%) y sus probabilidades de pasarse de la puntuación máxima son del 60%, pero en esta ronda <strong>NO</strong> gana a ningún jugador de la mesa (todos los demás jugadores han sacado un 6 y la banca tiene un 5.5); la banca pide carta.
+                </p>
+    
+                <h3>En resumen</h3>
+                <p>
+                    <strong>Si la banca ya gana:</strong> no pide más cartas.
+                </p>
+                <p>
+                    <strong>Si no gana:</strong> se fija en esos tres filtros (probabilidad de pasarse, si va perdiendo con todos y si puede quedarse sin puntos). Con que uno de esos factores indique que conviene robar carta, la banca lo hace.
+                </p>
+                <p>
+                    Esta lógica permite que la banca sepa cuándo arriesgarse y cuándo plantarse para maximizar sus posibilidades en la partida de 7 y medio.
+                </p>
+            </div>
+    
+            <div class="teoria-card">
+                <h2>LÓGICA DEL BOT</h2>
+                <img src="../images/bot.webp" alt="Lógica del bot" style="width: 30%; height: auto; margin-bottom: 20px;">
+                <p>
+                    La lógica que sigue el bot es prácticamente la misma que la que sigue la segunda condición de la banca.
+                </p>
+                <p>
+                    Es decir, el bot jugará ante todo siguiendo el tipo de jugador que es (<strong>agresivo</strong>, <strong>intermedio</strong> o <strong>pasivo</strong>), y en base a sus probabilidades, intentará sacar la mayor puntuación posible, plantándose una vez supere su probabilidad de tipo de jugador (<strong>30%</strong>, <strong>40%</strong> o <strong>50%</strong>).
+                </p>
+            </div>
+    
+            <div class="teoria-card">
+                <h2>Prioridad de los Jugadores</h2>
+                <img src="../images/prioridad.webp" alt="Prioridad de los jugadores" style="width: 30%; height: auto; margin-bottom: 20px;">
+                <p>
+                    Para establecer la prioridad de los jugadores se tiene en cuenta la <strong>initialCard</strong> (carta inicial). Se compara el <strong>“value”</strong> de las cartas, y en caso de que los dos valores de las cartas sean iguales (es decir, 13 de value con 13 de value), procederá a compararse el palo de la carta (si es oro, bastos, etc.), cuyo valor viene definido en las normas del juego.
+                </p>
+                <p>
+                    Este valor se ordenará usando el <strong>método burbuja</strong>, ordenando la prioridad de dichas cartas de menor a mayor, y ordenando también así a los jugadores de la partida, siendo el último jugador (es decir, el que mayor prioridad tiene) la banca.
+                </p>
+                <p>
+                    De esa forma, nos aseguramos que la banca siempre ocupe el último lugar de la lista para poder acceder a ella con el índice <strong>-1</strong>.
+                </p>
+            </div>
+    
+            <div class="teoria-card">
+                <h2>Inserción de Bases de Datos</h2>
+                <img src="../images/ranking.webp" alt="Inserción de bases de datos" style="width: 30%; height: auto; margin-bottom: 20px;">
+                <p>
+                    Para insertar dichas bases de datos, hemos guardado todos los datos en un <strong>diccionario vacío</strong> con todos los datos que contenían las tablas. Las claves de dicho diccionario son las columnas de la tabla (que aparecen en nuestra base de datos MySQL). El valor, lo que contengan estas columnas.
+                </p>
+                <p>
+                    Una vez tenemos todos los datos importados al diccionario, lo pasamos a una <strong>tupla ordenada</strong>.
+                </p>
+                <p>
+                    Después, insertamos estas tuplas a la base de datos para que se actualicen y se almacenen todos los datos que hayan transcurrido en el juego.
+                </p>
+            </div>
+        </main>
+    </main>
+    <!-- Pie de página -->
+    <footer>
+        <div class="back-to-top">
+            <a href="#top" id="back-to-top">Volver arriba</a>
+          </div>
+        <p> © 2025 Juego del 7 y Medio. Proyecto realizado por <i>thesevenarmy</i></p>
+    </footer>
+</body>
+
+</html>
