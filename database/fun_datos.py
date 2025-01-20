@@ -153,16 +153,16 @@ def get_cards_deck():
         if option.isdigit() and int(option) >= 1 and int(option) <= 3:
             option = int(option)
             if option == 1:
-                print(str(dato[option-1][1]) + " selected.")
+                input((str(dato[option-1][1]) + " selected.").center(150))
                 break
             elif option == 2:
-                print(str(dato[option-1][1]) + " selected.")
+                input((str(dato[option-1][1]) + " selected.").center(150))
                 break
             elif option == 3:
-                print(str(dato[option-1][1]) + " selected.")
+                input((str(dato[option-1][1]) + " selected.").center(150))
                 break
         else:
-            print("Invalid option. Please choose a number between 1 and 3.")
+            input("Invalid option. Please choose a number between 1 and 3.".center(150))
     selected_deck = select_query(f"select * from card WHERE deck_id = {option}")
     return selected_deck
 

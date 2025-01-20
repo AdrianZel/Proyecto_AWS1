@@ -5,20 +5,19 @@ from app.players.players import set_human_player, set_bot_player, show_remove_pl
 from app.players.headers import *
 from database.datos import *
 
-#creacion de menus
-def menus(lista):
+#creacion de menus cards es para mostrar las cartas siesque esta jugando. si no se pone nada no hace nada
+def menus(lista,cards=""):
+    menu=cards
+    for i in range(len(lista)):
+        menu+=" ".center(margen_player)+str(i+1) + ") " + lista[i]+"\n"
+    menu+=" ".center(margen_player) +"-> Opcion: "
+    again="Invalid Option. Please, Use a number.".center(tamaño_pantalla)+"\n"+"Press enter to continue...".center(tamaño_pantalla)
     while True:
-        menu=""
-        for i in range(len(lista)):
-            menu+=" ".center(margen_player)+str(i+1) + ") " + lista[i]+"\n"
-        menu+=" ".center(margen_player) +"-> Opcion: "
         opt =input(menu)
         if not opt.isdigit():
-            print("Invalid Option. Please, use a number.")
-            input("Press enter to continue.\n")
+            input(again)
         elif int(opt) not in range(1, len(lista)+1):
-            print("Out of range. Please, choose a number between 1 and" + " " + str(len(lista))+ ".")
-            input("Press enter to continue.\n")
+            input(again)
         else:
             opt = int(opt)
             return opt
@@ -82,11 +81,8 @@ def fill_player_game_round(player_game_round,round,*fields):
 
 #True si hay 2 o mas jugadores con mas puntos
 def checkMinimun2PlayerWithPoints():
-    cuenta=0
-    for i in context_game["game"]:
-        if players[i]["points"]>0:
-            cuenta+=1
-    return cuenta>1
+    cuenta=len(context_game["game"])
+    return cuenta<2
 
 
 #ordenar gamecontext por orden de prioridad
@@ -325,7 +321,8 @@ def humanRound(id,mazo_keys,ronda):
     opcion=0
     while opcion<5:
         print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "=") + "\n")
-        opcion = menus(humanRound_menu)
+        hand=showMano(players[id]["cards"],cartas,players[id]["roundPoints"])
+        opcion=menus(humanRound_menu,hand)
         if opcion == 1:
             viewStats(id)
         elif opcion == 2:
@@ -346,10 +343,13 @@ def play_game():
     if len(cartas)==0:
         input("First choose a deck!...".center(tamaño_pantalla))
         return
+    elif checkMinimun2PlayerWithPoints():
+        input("at least 2 players are needed!").center(tamaño_pantalla)
+        return
     player_game = {}            # datos para exportar a  BBDD
     player_game_round = {}      # datos para exportar a BBDD
     cardGame = {}               # datos a exportar al BBDD
-    game_id = getID()           # obtiene id dela BBDD
+
 
     rondas_jugadas=0
     setGamePriority(cartas.keys())
@@ -379,8 +379,6 @@ def play_game():
                 standarRound(i, cartas_keys)
             gameStats(ronda,i)
         # fin dela ronda
-        # print(recojerDatos(context_game["game"]))
-        # recopilacion de datos de ronda
 
         #guarda puntos iniciales de ronda
         start_points_round = {}
@@ -417,7 +415,7 @@ def play_game():
             break
 
     # fin dela partida
-
+    game_id = getID()  # obtiene id dela BBDD
     cardGame.update({"cardgame_id": game_id, "players": len(start_points_game), "start_hour": start_time,"rounds": rondas_jugadas, "end_hour": datetime.time(datetime.now()),"deck_id":context_game["deck_id"]})
     print("End dela partida!")
     input()
@@ -567,11 +565,12 @@ def setRounds():
     while True:
         rounds=input(" ".ljust(70)+"Max Round: ")
         if not rounds.isdigit():
-            print(" ".ljust(70)+"Please, Dont be stupid")
+            input(" ".ljust(70)+"Please, select a number."+"\n"+" ".ljust(70) + "Enter to continue")
+
         elif int(rounds) not in range(1,21):
-            print(" ".ljust(70)+"The max rounds has to be  between 0 and 20")
+            input(" ".ljust(70)+"The max rounds has to be  between 0 and 20"+"\n"+" ".ljust(70) + "Enter to continue")
         else:
-            print(" ".ljust(70)+f"Established maximum of rounds to {rounds}")
+            input(" ".ljust(70)+f"Established maximum of rounds to {rounds}"+"\n"+" ".ljust(70) + "Enter to continue")
             context_game["round"]=int(rounds)
             break
 def setting():
@@ -613,8 +612,91 @@ def SevenandHalf():
         elif opcion==4:
             ranking()
         elif opcion==5:
-            input("Loading...")
+            reports()
         else:
             break
 
 
+# Muestra las cosultas datos=select_query() campos=["nombre de los campos"]
+def showConsultas(datos,campos):
+    cantidad_datos=len(datos)-1
+    full_size=0
+    tamaños=[]
+    for i in campos:
+        full_size+=len(i)+5
+        tamaños.append(len(i)+5)
+
+    encabezado = ("*" * full_size).center(tamaño_pantalla) + "\n"
+    data=""
+    for i in range(len(campos)):
+        data+=campos[i].ljust(tamaños[i])
+    encabezado+=data.center(tamaño_pantalla)+"\n"+("*"*full_size).center(tamaño_pantalla)+"\n"
+    exit=False
+    pagina=0
+    show_max = 10
+    pagina_final=((cantidad_datos//show_max) if cantidad_datos%show_max==0 else (cantidad_datos//show_max)+1)
+    while not exit:
+        rank=encabezado
+        #many = cantidad de personas que mostrara
+        if show_max*pagina+show_max>cantidad_datos:
+            many=cantidad_datos+1-(show_max*pagina)
+        else:
+            many=show_max
+        for i in range(show_max*pagina,(show_max*pagina)+many):
+            info=""
+            for j in range(len(datos[i])):
+                info+=str(datos[i][j]).ljust(tamaños[j])
+            rank+=info.center(tamaño_pantalla)+"\n"
+        rank+=(f"Page {pagina+1}/{pagina_final}".center(full_size,"-")).center(tamaño_pantalla)
+        msg="exit to go Rankings:"
+        if pagina-1>=0:
+            msg="- to go back, "+msg
+        if show_max*pagina+many+1<=cantidad_datos:
+            msg="+ to go ahead, "+msg
+
+
+        espacio_question=int((media_pantalla)-(full_size/2))
+
+        while True:
+            opc=input(rank+"\n"+" ".ljust(espacio_question)+msg).upper()
+            if opc == "-" and "-" in msg:
+                pagina -= 1
+                break
+            elif opc == "+" and "+" in msg:
+                pagina += 1
+                break
+            elif opc == "EXIT":
+                exit = True
+                break
+            else:
+                print("Invalid Option".center(tamaño_pantalla,"="))
+                input("Press enter to continue".center(tamaño_pantalla))
+
+def reports():
+    while True:
+        opcion=menus(reports_menu)
+        if opcion==11:
+            break
+        elif opcion not in consultas.keys():
+            input("Loading...".center(tamaño_pantalla))
+        else:
+            data=select_query(consultas[opcion][0])
+            showConsultas(data,consultas[opcion][1])
+
+
+#printa las cartas que tengas
+def showMano(cards,cartas,points):
+    canti=len(cards)
+    if canti!=0:
+        largo=10*canti
+        a=(("┍"+"".center(8,"━")+"┑")*canti).center(tamaño_pantalla)+"\n"
+        b=""
+        for i in cards:
+            b+="│"+i.ljust(8)+"│"
+        a+=b.center(tamaño_pantalla)+"\n"+("│        │"*canti).center(tamaño_pantalla)+"\n"
+        b=""
+        for i in cards:
+            b += "│" + str(cartas[i]["realValue"]).rjust(8) + "│"
+        a+=b.center(tamaño_pantalla)+"\n"+(("┕"+"".center(8,"─")+"┙")*canti).center(tamaño_pantalla)+"\n"+(f"Total value={points}".center(largo)).center(tamaño_pantalla)+"\n"
+        return a
+    return ""
