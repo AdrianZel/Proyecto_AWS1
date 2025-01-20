@@ -1,149 +1,133 @@
 from app.players.headers import *
-from app.players.utils import print_data_two, print_from_two_lists
-from utils import (setDniValidate, generar_dni_bot, dniValidate, get_confirm,
-                   setProfilePlayer, getProfileName, setName)
-from app.fun import menus
-from database.datos import (main_menu, player_menu, insertaPlayer,
-                            datos_jugadores, players, deletePlayer, FULL_SCREEN)
+from app.players.utils import (print_data_two, print_from_two_lists, set_dni_validate, generar_dni_bot,
+                               dni_validate, get_confirm, get_profile_name, set_name, set_profile_player)
+from database.datos import (insertaPlayer, datos_jugadores, players, deletePlayer, FULL_SCREEN,MARGIN_SCREEN)
 
-
-"""
-Bloque para aplicar los cambios de usuarios
-"""
-print(players)
-players=datos_jugadores()
-print(players)
-"""
-Fin bloque de cambios
-"""
-def initializeMenu():
+def set_human_player():
+    """
+    Crear jugador en base de datos y actualizar el diccionario de jugadores.
+    """
     global players
-    while True:
-        showHeaderStart()
-        option = menus(main_menu)
-        if option ==1:
-            showHeaderBBDDPlayers()
-            opt = menus(player_menu)
-            arm_players(opt)
+    list_data = []
 
-def arm_players(option):
+    # Add Name
+    show_header_nhp()
+    name = set_name()
+    list_data.append(('Name', name))
+
+    # Add DNI
+    show_header_nhp()
+    print_data_two(list_data)
+
+    dni = set_dni_validate()
+    list_data.append(('Dni', dni))
+
+    # Add Profile
+    show_header_nhp()
+    print_data_two(list_data)
+
+    profile = set_profile_player()
+    list_data.append(('Profile', get_profile_name(profile)))
+
+    # Confirm
+    show_header_nhp()
+    print_data_two(list_data)
+    confirm = get_confirm()
+    if confirm:
+        player = [dni, name, profile, 1]
+        insertaPlayer(player)
+        players.clear()
+        players.update(datos_jugadores())
+
+        print(MARGIN_SCREEN + "{} has been created as a human player".format(name))
+
+def set_bot_player():
+    """
+    Crear jugador Bot en base de datos y actualizar el diccionario de jugadores.
+    Se utiliza la función generar_dni_bot, que genera uno aleatorio.
+    """
+    global players
+    list_data = []
+    show_header_add_bot_player()
+    print_data_two(list_data)
+
+    # Add Name
+    name = set_name()
+    dni = generar_dni_bot()
+    list_data.append(('Name', name))
+    list_data.append(('Dni', dni))
+
+    # Set Profile
+    show_header_add_bot_player()
+    print_data_two(list_data)
+    profile = set_profile_player()
+
+    # Add Name
+    list_data.append(('Profile', get_profile_name(profile)))
+    show_header_add_bot_player()
+    print_data_two(list_data)
+
+    # Confirm
+    confirm = get_confirm()
+    if confirm:
+        player = [dni, name, profile, 0]
+        insertaPlayer(player)
+        players.clear()
+        players.update(datos_jugadores())
+        print(MARGIN_SCREEN + "{} has been created as a bot player".format(name))
+
+def show_remove_players():
     global players
 
-    if option == 1:
-        listData = []
+    show_header_sr_player()
+    if not (type(players) is dict):
+        players.clear()
+        players.update(datos_jugadores())
 
-        # Add Name
-        showHeaderNHP()
-        print_data_two(listData)
-        name = setName()
-        listData.append(('Name', name))
+    list_bots = []
+    list_humans = []
 
-        # Add DNI
-        showHeaderNHP()
-        print_data_two(listData)
+    for key, value in players.items():
+        if value['human']:
+            list_humans.append((key, value['name'], get_profile_name(value['type'])))
+        else:
+            list_bots.append((key, value['name'], get_profile_name(value['type'])))
 
-        dni = setDniValidate()
-        listData.append(('Dni', dni))
+    max_length = len(list_humans) if len(list_humans) > len(list_bots) else len(list_bots)
+    print_from_two_lists(("ID", "Name", "Type"), ("ID", "Name", "Type"))
 
-        # Add Profile
-        showHeaderNHP()
-        print_data_two(listData)
+    print(ASTERISKS_LINE)
 
-        profile = setProfilePlayer()
-        listData.append(('Profile', getProfileName(profile)))
+    for i in range(max_length):
+        if not i < len(list_bots):
+            print_from_two_lists((' ', ' ', ' '), list_humans[i])
+        elif not i < len(list_humans):
+            print_from_two_lists(list_bots[i], (' ', ' ', ' '))
+        else:
+            print_from_two_lists(list_bots[i], list_humans[i])
 
-        # Confirm
-        showHeaderNHP()
-        print_data_two(listData)
-        confirm = get_confirm()
-        if confirm:
-            player = [dni, name, profile, 1]
-            insertaPlayer(player)
-            players.clear()
-            players.update(datos_jugadores())
+    print(ASTERISKS_LINE)
 
+    remove_player_listen = remove_player()
+    if remove_player_listen:
+        players.clear()
+        players.update(datos_jugadores())
 
-    elif option == 2:
-        listData = []
-        showHeaderNBP()
-        print_data_two(listData)
-
-        # Add Name
-        name = setName()
-        dni = generar_dni_bot()
-        listData.append(('Name', name))
-        listData.append(('Dni', dni))
-
-        # Set Profile
-        showHeaderNBP()
-        print_data_two(listData)
-        profile = setProfilePlayer()
-
-        # Add Name
-        listData.append(('Profile', getProfileName(profile)))
-        showHeaderNBP()
-        print_data_two(listData)
-
-        # Confirm
-        confirm = get_confirm()
-        if confirm:
-            player = [dni, name, profile, 0]
-            insertaPlayer(player)
-            players.clear()
-            players.update(datos_jugadores())
-
-    elif option == 3:
-
-        showHeaderSRPlayer()
-        if not (type(players) is dict):
-            players.clear()
-            players.update(datos_jugadores())
-
-        list_bots = []
-        list_humans = []
-
-        for key, value in players.items():
-            if value['human']:
-                list_humans.append((key, value['name'], getProfileName(value['type'])))
-            else:
-                list_bots.append((key, value['name'], getProfileName(value['type'])))
-
-        max_length = len(list_humans) if len(list_humans) > len(list_bots) else len(list_bots)
-        print_from_two_lists(("ID","Name","Type"),("ID","Name","Type"))
-
-        print(ASTERISKS_LINE)
-
-        for i in range(max_length):
-            if not i < len(list_bots):
-                print_from_two_lists((' ', ' ', ' '), list_humans[i])
-            elif not i < len(list_humans):
-                print_from_two_lists(list_bots[i], (' ', ' ', ' '))
-            else:
-                print_from_two_lists(list_bots[i], list_humans[i])
-
-        print(ASTERISKS_LINE)
-
-        remove_player_listen = remove_player()
-        if remove_player_listen:
-            players.clear()
-            players.update(datos_jugadores())
-
-
-        input("Enter to Continue")
+    input(MARGIN_SCREEN + "Enter to Continue")
 
 
 def remove_player():
     global players
     msg_opt="Option ( -id to remove player, -1 to exit):"
-    print(msg_opt.center(FULL_SCREEN))
-    dni = input( " ".center(HALF_SCREEN-(len(msg_opt)//2)) )
-    while not ((dni == "-1") or (dni[:1] == "-" and dniValidate(dni[1:]) and dni[1:] in players.keys()) ):
+    print(MARGIN_SCREEN + msg_opt)
+    dni = input( MARGIN_SCREEN + " " )
+    while not ((dni == "-1") or (dni[:1] == "-" and dni_validate(dni[1:]) and dni[1:] in players.keys())):
         print(" Invalid Option ".center(FULL_SCREEN,"="))
 
         input("Enter to Continue")
 
-        print(msg_opt.center(FULL_SCREEN))
-        dni = input(" ".center(HALF_SCREEN-(len(msg_opt)//2)))
+        print(MARGIN_SCREEN + msg_opt)
+        dni = input(MARGIN_SCREEN + " ")
 
     player_name = players[dni[1:]]['name']
 
@@ -151,8 +135,5 @@ def remove_player():
         return False
     else:
         deletePlayer(dni[1:])
-        print("{} has been deleted".format(player_name))
+        print(MARGIN_SCREEN + "{} has been deleted".format(player_name))
         return True
-
-
-initializeMenu()

@@ -1,22 +1,15 @@
+""" Cabeceras utilizadas la administaración de jugadores"""
+
 import os
 from database.datos import HALF_SCREEN, ASTERISKS_LINE, HORIZONTAL_LINE, FULL_SCREEN
 
 os.environ["TERM"] = "xterm"
 
-def showHeaderStart() -> None:
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print(ASTERISKS_LINE + "\n")
-    print(r"""
-                                     _____                         ___              __   __  __      ______
-                                    / ___/___ _   _____  ____     /   |  ____  ____/ /  / / / /___ _/ / __/
-                                    \__ \/ _ \ | / / _ \/ __ \   / /| | / __ \/ __  /  / /_/ / __ `/ / /_  
-                                   ___/ /  __/ |/ /  __/ / / /  / ___ |/ / / / /_/ /  / __  / /_/ / / __/ 
-                                  /____/\___/|___/\___/_/ /_/  /_/  |_/_/ /_/\__,_/  /_/ /_/\__,_/_/_/  
-
-    """)
-    print(ASTERISKS_LINE + "\n")
-
-def showHeaderBBDDPlayers() -> None:
+def show_header_bbdd_players() -> None:
+    """
+    Cabecera menú inicial de jugadores
+    :return: cabecera
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     print(ASTERISKS_LINE + "\n")
     print(r"""
@@ -26,11 +19,16 @@ def showHeaderBBDDPlayers() -> None:
                                / /_/ // /_/ // /_/ // /_/ /  / ____// // /_/ // /_/ //  __// /   (__  )                                     
                               /_____//_____//_____//_____/  /_/    /_/ \__,_/ \__, / \___//_/   /____/                                      
                                                                              /____/                                                                                                                                          
+
     """)
     print(ASTERISKS_LINE + "\n")
 
 
-def showHeaderNHP() -> None:
+def show_header_nhp() -> None:
+    """
+    Cabecera crear nuevo player humano
+    :return: cabecera
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     print(ASTERISKS_LINE)
     print(r"""
@@ -44,7 +42,11 @@ def showHeaderNHP() -> None:
     print(ASTERISKS_LINE)
 
 
-def showHeaderNBP() -> None:
+def show_header_add_bot_player() -> None:
+    """
+    Cabecera opcion crear player bot
+    :return: Cabecera
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     print(ASTERISKS_LINE)
     print(r"""
@@ -58,7 +60,10 @@ def showHeaderNBP() -> None:
     print(ASTERISKS_LINE)
 
 
-def showHeaderSRPlayer() -> None:
+def show_header_sr_player() -> None:
+    """
+    Cabecera para la opción de mostrar y borrar jugadores
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     print(ASTERISKS_LINE)
     print(
@@ -76,3 +81,19 @@ def showHeaderSRPlayer() -> None:
     print("Boot Players".center(HALF_SCREEN-3), "|| ","Human Players".center(HALF_SCREEN)  )
     print(HORIZONTAL_LINE)
 
+def show_header_main_menu() -> None:
+    """
+    Cabecera para menú inicial
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(HORIZONTAL_LINE)
+    print(r"""
+                  ███████╗███████╗██╗   ██╗███████╗███╗   ██╗     █████╗ ███╗   ██╗██████╗     ██╗  ██╗ █████╗ ██╗     ███████╗
+                  ██╔════╝██╔════╝██║   ██║██╔════╝████╗  ██║    ██╔══██╗████╗  ██║██╔══██╗    ██║  ██║██╔══██╗██║     ██╔════╝
+                  ███████╗█████╗  ██║   ██║█████╗  ██╔██╗ ██║    ███████║██╔██╗ ██║██║  ██║    ███████║███████║██║     █████╗  
+                  ╚════██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║    ██╔══██║██║╚██╗██║██║  ██║    ██╔══██║██╔══██║██║     ██╔══╝  
+                  ███████║███████╗ ╚████╔╝ ███████╗██║ ╚████║    ██║  ██║██║ ╚████║██████╔╝    ██║  ██║██║  ██║███████╗██║     
+                  ╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝    ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     
+    """)
+    print(HORIZONTAL_LINE)
+    print()
