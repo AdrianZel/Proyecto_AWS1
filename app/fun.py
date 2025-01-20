@@ -1,5 +1,8 @@
 from datetime import datetime
 import random
+
+from app.players.players import set_human_player, set_bot_player, show_remove_players
+from app.players.headers import *
 from database.datos import *
 
 #creacion de menus
@@ -583,11 +586,26 @@ def setting():
         else:
             break
 
+def add_show_remove_players():
+    while True:
+        show_header_bbdd_players()
+        opt = menus(player_menu)
+        if opt == 1:
+            set_human_player()
+        elif opt == 2:
+            set_bot_player()
+        elif opt == 3:
+            show_remove_players()
+        else:
+            break
+
+
 def SevenandHalf():
     while True:
+        show_header_main_menu()
         opcion=menus(main_menu)
         if opcion==1:
-            input("Loading...")
+            add_show_remove_players()
         elif opcion==2:
             setting()
         elif opcion==3:
