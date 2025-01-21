@@ -25,6 +25,7 @@ def menus(lista,cards=""):
 
 #Devuelve una lisa con las ids de las cartas "barajeadas"
 def barajeo_carta(mazo_keys):
+    write_log("barajeo_carta() iniciado")
     mazo_keys=list(mazo_keys)
     largo=len(mazo_keys)
     mazo_barajeado=[]
@@ -40,11 +41,12 @@ def barajeo_carta(mazo_keys):
 #prioridad de turnos
 #cambia las cartas iniciales y la prioridad de juego al diccionario players.
 def setGamePriority(mazo_keys):
+    write_log("setGame Priority iniciado")
     mazo_barajeado=barajeo_carta(mazo_keys)
     for i in context_game["game"]:
         players[i]["initialCard"]=mazo_barajeado[0]
 
-        print(players[i]["name"],"saco",cartas[mazo_barajeado[0]]["literal"])
+        # print(players[i]["name"],"saco",cartas[mazo_barajeado[0]]["literal"])
 
         mazo_barajeado=mazo_barajeado[1:]
     for i in range(len(context_game["game"])):
@@ -67,11 +69,13 @@ def setGamePriority(mazo_keys):
 
 #resetear puntos
 def resetPoints():
+    write_log("resetPoints() iniciado")
     for i in context_game["game"]:
         players[i]["points"]=20
 
 #llena diccionario players_game
 def fill_player_game(player_game,gameID,*fields):
+    write_log("fill_player_game() iniciado")
     player_game[gameID][fields[0]]={"initial_card":fields[1],"starting_points":fields[2],"ending_points":fields[3],"deck_id":fields[4]}
 
 
@@ -124,14 +128,17 @@ def calculaChance(id,mazo):
     # print(type(puntos_ronda),puntos_ronda)
     # print(players[id]["cards"])
     # print(len(mazo))
+    halfcards=len(cartas)-28
+    cartas_necesarias=((7-int(puntos_ronda))*4)+ (halfcards if 7.5-puntos_ronda>=0.5 else 0)
 
-    cartas_necesarias=((7.5-puntos_ronda)*4)+24
 
     cartas_para_pasarse=len(cartas)-cartas_necesarias
     # print(cartas_para_pasarse,"pasarse")
-    chance_para_pasarse=(cartas_para_pasarse/len(mazo))*100
+    chance_para_pasarse=(cartas_para_pasarse/len(cartas))*100
 
     return chance_para_pasarse
+
+
 #devuelve true si terminaria eliminado despues dela ronda
 def bank_eliminated(id):
     puntos_a_perder=0
@@ -277,9 +284,9 @@ def gameStats(ronda=0,id=0):
 #retorna true si pide carta
 def pedir_carta(id,mazo):
     if players[id]["roundPoints"] > 7.5:
-        print("You have exceeded the score limit!")
+        input("You have exceeded the score limit!".center(FULL_SCREEN)+"\n"+"Enter to continue".center(FULL_SCREEN))
     else:
-        info="Order card\nLa chance para exceed 7,5 = {} %\n Are you sure do you want to order another card? Y/y = yes , another key = no\n".format(calculaChance(id,mazo))
+        info="\n"+"".center(40)+f"The chance para exceed 7,5 = {calculaChance(id,mazo)} %"+"\n"+"".center(40)+"Are you sure do you want to order another card? Y/y = yes , another key = no\n"
         opcion=input(info).upper()
         if opcion == "Y":
             players[id]["cards"].append(mazo[-1])
@@ -287,17 +294,20 @@ def pedir_carta(id,mazo):
             mazo.pop(-1)
 
 def bets(id):
+    write_log("Iniciados Bets")
     if players[id]["bank"]:
-        print("Cant bet if u are the bank")
+        print("Cant bet if you are the bank".center(FULL_SCREEN))
+        input("Enter to continue".center(FULL_SCREEN))
     elif players[id]["roundPoints"]!=0:
-        print("Already pulled a card!")
+        print("Already pulled a card!".center(FULL_SCREEN))
+        input("Enter to continue".center(FULL_SCREEN))
     else:
         while True:
-            bet=input("Set the new bet: ")
+            bet=input("".center(margen_player)+"Set the new bet: ")
             if not bet.isdigit():
-                print("Introduce only numbers!")
+                print("Introduce only numbers!".center(FULL_SCREEN))
             elif int(bet) not in range(1,players[id]["points"]):
-                print("The new bet has to be a number between 1 and {}".format(players[id]["points"]))
+                print("The new bet has to be a number between 1 and {}".format(players[id]["points"]).center(FULL_SCREEN))
             else:
                 players[id]["bet"]=int(bet)
                 break
@@ -320,7 +330,7 @@ def kill_player():
 #ronda de humano
 def humanRound(id,mazo_keys,ronda):
     opcion=0
-    while opcion<5:
+    while opcion<5 and players[id]["roundPoints"]<7.5:
         print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "=") + "\n")
         hand=showMano(players[id]["cards"],cartas,players[id]["roundPoints"])
         opcion=menus(humanRound_menu,hand)
@@ -336,11 +346,16 @@ def humanRound(id,mazo_keys,ronda):
             standarRound(id, mazo_keys)
         else:
             print("")
+    if players[id]["roundPoints"]>=7.5:
+        print(showMano(players[id]["cards"], cartas, players[id]["roundPoints"]))
+        print("You got 7.5!".center(tamaño_pantalla) if players[id]["roundPoints"]==7.5 else "You exceeded the score limit!".center(tamaño_pantalla))
+        input("Enter to continue".center(tamaño_pantalla))
 
 #jugar
 def play_game():
-    print(cartas)
-    print(context_game["game"])
+    show_header_dinamic("player game")
+    # print(cartas)
+    # print(context_game["game"])
     if len(cartas)==0:
         input("First choose a deck!...".center(tamaño_pantalla))
         return
@@ -360,7 +375,7 @@ def play_game():
 
     # guarda puntos iniciales del juego
     start_points_game = {}
-    print(context_game["game"])
+    # print(context_game["game"])
     for i in context_game["game"]:
         start_points_game[i]=players[i]["points"]
 
@@ -376,7 +391,6 @@ def play_game():
             if players[i]["human"]:
                 humanRound(i, cartas_keys,ronda)
             else:
-                print("Round {}, Turno de {}".format(ronda, players[i]["name"]).center(tamaño_pantalla, "=") + "\n")
                 standarRound(i, cartas_keys)
             gameStats(ronda,i)
         # fin dela ronda
@@ -393,6 +407,7 @@ def play_game():
         player_game_round[ronda] = {}
 
         #rellena los datos de player_game_round
+        write_log("fill_player_game_round() used")
         for i in context_game["game"]:
             fill_player_game_round(player_game_round, ronda, i, players[i]["bank"], players[i]["bet"], start_points_round[i],
                                    players[i]["roundPoints"], players[i]["points"])
@@ -416,22 +431,28 @@ def play_game():
             break
 
     # fin dela partida
+    showWinner(context_game["round"])
+    write_log("getID() used")
     game_id = getID()  # obtiene id dela BBDD
     cardGame.update({"cardgame_id": game_id, "players": len(start_points_game), "start_hour": start_time,"rounds": rondas_jugadas, "end_hour": datetime.time(datetime.now()),"deck_id":context_game["deck_id"]})
-    print("End dela partida!")
-    input()
+
 
     #datos de player_game
     player_game[game_id]={}
+    write_log("fill_player_game() used")
     for i in start_points_game.keys():
         player_game[game_id][i]={}
         fill_player_game(player_game,game_id,i,players[i]["initialCard"],start_points_game[i],players[i]["points"],context_game["deck_id"])
 
     # subir los datos dela partida ala BBDD
     # print(player_game)
+
     insertCardGame(cardGame)
+    write_log("insertCardGame() used")
     insertarPlayGame(player_game)
+    write_log("insertarPlayGame() used")
     insertarPlayGameRound(player_game_round,game_id)
+    write_log("insertarPlayGameRound() used")
 
 
 
@@ -553,17 +574,19 @@ def setGamePlayers():
                 input("Invalid Option".center(tamaño_pantalla)+"\n"+"Enter to continue".center(tamaño_pantalla))
 
 def set_cards_deck():
+    write_log("set_cards_deck() used")
     selected_deck=get_cards_deck()
     choosen_cards = {}
     context_game["deck_id"] = selected_deck[0][5]
     for k in selected_deck:
         choosen_cards[k[0]] = {"literal": k[1], "value": k[2], "priority": k[3], "realValue": k[4]}
-    print(choosen_cards)
-    input("")
+    # print(choosen_cards)
+    # input("")
     cartas.clear()
     cartas.update(choosen_cards)
 
 def setRounds():
+    write_log("setRounds() used")
     while True:
         rounds=input(" ".ljust(70)+"Max Round: ")
         if not rounds.isdigit():
@@ -577,7 +600,7 @@ def setRounds():
             break
 def setting():
     while True:
-        show_header_settings()
+        show_header_dinamic("settings")
         opcion=menus(settings_menu)
         if opcion==1:
             setGamePlayers()
@@ -603,26 +626,39 @@ def add_show_remove_players():
 
 
 def SevenandHalf():
-    while True:
-        show_header_main_menu()
-        opcion=menus(main_menu)
-        if opcion==1:
-            add_show_remove_players()
-        elif opcion==2:
-            setting()
-        elif opcion==3:
-            play_game()
-        elif opcion==4:
-            ranking()
-        elif opcion==5:
-            reports()
-        else:
-            break
+    try:
+        write_log("Inicio Sesion")
+        while True:
+            show_header_main_menu()
+            opcion=menus(main_menu)
+            if opcion==1:
+                write_log("add_show_remove() used")
+                add_show_remove_players()
+            elif opcion==2:
+                write_log("setting() used")
+                setting()
+            elif opcion==3:
+                write_log("play_game() used")
+                play_game()
+                write_log("play_game() end")
+            elif opcion==4:
+                write_log("ranking() used")
+                ranking()
+                write_log("ranking() end")
+            elif opcion==5:
+                write_log("reports() used")
+                reports()
+                write_log("reports() end")
+            else:
+                write_log("Cierre Sesion")
+                break
+    except Exception as error:
+        write_log(f"interrupt End sesion{error}","ERROR")
 
 
 # Muestra las cosultas datos=select_query() campos=["nombre de los campos"]
 def showConsultas(datos,campos, opcion):
-    generate_xml(datos, campos, "consulta"+str(opcion)+".xml")
+    generate_xml(datos, campos, "consulta" + str(opcion) + ".xml")
     cantidad_datos=len(datos)-1
     full_size=0
     tamaños=[]
@@ -694,7 +730,7 @@ def showMano(cards,cartas,points):
     canti=len(cards)
     if canti!=0:
         largo=10*canti
-        a=(("┍"+"".center(8,"━")+"┑")*canti).center(tamaño_pantalla)+"\n"
+        a="\n"+(("┍"+"".center(8,"━")+"┑")*canti).center(tamaño_pantalla)+"\n"
         b=""
         for i in cards:
             b+="│"+i.ljust(8)+"│"
@@ -705,3 +741,12 @@ def showMano(cards,cartas,points):
         a+=b.center(tamaño_pantalla)+"\n"+(("┕"+"".center(8,"─")+"┙")*canti).center(tamaño_pantalla)+"\n"+(f"Total value={points}".center(largo)).center(tamaño_pantalla)+"\n"
         return a
     return ""
+
+def showWinner(round):
+    points=0
+    for i in context_game["game"]:
+        if players[i]["points"]-20>points:
+            points=players[i]["points"]
+            winner=i
+    print(f"The winner is {winner} - {players[winner]["name"]} in {round} rounds , with {points} points".center(tamaño_pantalla))
+    input("".center(tamaño_pantalla))
