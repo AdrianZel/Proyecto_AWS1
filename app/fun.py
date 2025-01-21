@@ -2,7 +2,8 @@ from datetime import datetime
 import random
 
 from app.players.players import set_human_player, set_bot_player, show_remove_players
-from app.players.headers import *
+from app.headers import *
+from app.xmlgenerate import generate_xml
 from database.datos import *
 
 #creacion de menus cards es para mostrar las cartas siesque esta jugando. si no se pone nada no hace nada
@@ -352,6 +353,7 @@ def humanRound(id,mazo_keys,ronda):
 
 #jugar
 def play_game():
+    show_header_dinamic("player game")
     # print(cartas)
     # print(context_game["game"])
     if len(cartas)==0:
@@ -464,6 +466,7 @@ def sorted_ranked(datos,keys,order_key):
 
 #opcion 4 ranking
 def ranking():
+    show_header_dinamic("rankings")
     datos=get_ranking()
     keys = list(datos.keys())
     while True:
@@ -597,6 +600,7 @@ def setRounds():
             break
 def setting():
     while True:
+        show_header_dinamic("settings")
         opcion=menus(settings_menu)
         if opcion==1:
             setGamePlayers()
@@ -653,7 +657,8 @@ def SevenandHalf():
 
 
 # Muestra las cosultas datos=select_query() campos=["nombre de los campos"]
-def showConsultas(datos,campos):
+def showConsultas(datos,campos, opcion):
+    generate_xml(datos, campos, "consulta" + str(opcion) + ".xml")
     cantidad_datos=len(datos)-1
     full_size=0
     tamaños=[]
@@ -709,6 +714,7 @@ def showConsultas(datos,campos):
 
 def reports():
     while True:
+        show_header_dinamic("reports")
         opcion=menus(reports_menu)
         if opcion==11:
             break
@@ -716,7 +722,7 @@ def reports():
             input("Loading...".center(tamaño_pantalla))
         else:
             data=select_query(consultas[opcion][0])
-            showConsultas(data,consultas[opcion][1])
+            showConsultas(data,consultas[opcion][1], opcion)
 
 
 #printa las cartas que tengas
