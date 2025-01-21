@@ -1,0 +1,391 @@
+/* Variables CSS */
+:root {
+    --raisin-black: #2c2726ff;
+    --sky-blue: #60A2AC;
+    --beige: #f5f3d7ff;
+    --jasper: #DA5647;
+    --black-olive: #4b4741ff;
+    --hunyadi-yellow: #dda742ff;
+    --licorice: #211a17ff;
+    --fondo: #fffff4;
+
+}
+
+/* Estilos Generales */
+body {
+    font-family: 'EB Garamond', serif;
+    background-color: var(--fondo);
+    color: var(--licorice);
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor del ícono */
+.icon-container {
+    position: absolute;
+    top: 0.7%;
+    left: 3%;
+    z-index: 10;
+}
+
+.icon-container img {
+    width: 125px;
+    margin-left: -30px;
+    height: auto;
+    border-radius:3px;
+}
+
+/* Estilo de navegación */
+nav {
+    position: relative;
+    padding: 20px 0;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 100px; /* Ajusta la altura de la barra de navegación */
+    border: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Pseudo-elemento para la capa de fondo */
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/fondo1.jpg'); /* Imagen de fondo */
+    background-size: cover;
+    background-position: center center;
+    opacity: 0.5; /* Ajusta la opacidad de la imagen */
+    z-index: -1; /* Coloca la capa de fondo detrás de los elementos del nav */
+}
+
+/* Estilo para los elementos dentro del nav */
+nav img {
+    display: none; /* Se oculta la imagen dentro de la etiqueta img */
+}
+
+/* Estilo general para el ícono dentro del nav */
+nav .menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav .menu li {
+    margin: 0 35px;
+    margin-left: 55px;
+}
+
+nav .menu a {
+    color: var(--black-olive);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.4s ease; /* Transición más suave */
+    font-size: 20px;
+    font-family: Adamina;
+    font-weight: 600;
+    position: relative; /* Necesario para el subrayado animado */
+}
+
+/* Hover con cambio de color, escala y subrayado animado */
+nav .menu a:hover {
+    color: var(--jasper);
+    transform: scale(1.1); /* Aumenta el tamaño en hover */
+}
+
+/* Subrayado animado */
+nav .menu a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--jasper);
+    transform: scaleX(0); /* Comienza el subrayado invisible */
+    transition: transform 0.4s ease; /* Transición suave para el subrayado */
+}
+
+nav .menu a:hover::before {
+    transform: scaleX(1); /* El subrayado se expande al 100% */
+}
+main {
+    padding: 50px;
+}
+
+.titulo-pagina h1 {
+    color: var(--sky-blue); /* Color del texto */
+    font-size: 46px; /* Tamaño del texto */
+    text-align: center; /* Centrado horizontal */
+    margin: 15px auto 90px auto; /* Espaciado alrededor */
+    display: block; /* Para centrarlo correctamente */
+    width: fit-content; /* Ajusta el ancho al contenido del texto */
+    position: relative; /* Necesario para usar ::after */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(20px); /* Posición inicial desplazada hacia abajo */
+    animation: fade-slide-in 0.4s ease-out forwards; /* Animación para aparición */
+    animation-delay: 0.2s; /* Asegura que no haya retraso en la animación */
+}
+
+/* Animación para la aparición del texto */
+@keyframes fade-slide-in {
+    0% {
+        opacity: 0; /* Invisible */
+        transform: translateY(20px); /* Desplazado hacia abajo */
+    }
+    100% {
+        opacity: 1; /* Totalmente visible */
+        transform: translateY(0); /* Posición final */
+    }
+}
+
+.titulo-pagina h1::after {
+    content: ""; /* Crea una línea decorativa */
+    position: absolute;
+    left: 50%; /* Posiciona el centro del subrayado */
+    transform: translateX(-50%); /* Ajusta para centrar el subrayado */
+    bottom: -10px; /* Ajusta la distancia del subrayado al texto */
+    height: 2px; /* Grosor del subrayado */
+    background-color: var(--sky-blue); /* Color del subrayado */
+    width: 320%; /* Ajusta al ancho del texto */
+    animation: extend-line 0.9s ease-out forwards; /* Aplica la animación */
+    animation-delay: 0.2s; /* Asegura que no haya retraso en la animación */
+
+}
+
+@keyframes extend-line {
+    0% {
+        transform: translateX(-50%) scaleX(0); /* La línea está contraída */
+    }
+    100% {
+        transform: translateX(-50%) scaleX(1); /* La línea se expande */
+    }
+}
+
+h1 {
+    font-size: 26px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 90px;
+}
+
+/* Contenedor de las cartas */
+.contenedor-cartas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1450px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Estilos de las cartas */
+.carta {
+    width: 250px;
+    height: 390px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 2; /* Asegura que la carta esté encima del desplegable */
+}
+
+.carta::before {
+    content: '';
+    position: absolute;
+    top: 20px; /* Ajusta para el espacio superior */
+    left: 20px; /* Ajusta para el espacio izquierdo */
+    right: 20px; /* Ajusta para el espacio derecho */
+    bottom: 20px; /* Ajusta para el espacio inferior */
+    border: 2.5px solid black; /* Grosor y color del rectángulo interno */
+    pointer-events: none; /* Asegura que no interfiera con otros elementos */
+    z-index: 1; /* Dibuja debajo del contenido de la carta */
+}
+
+.carta .numero {
+    position: absolute;
+    font-size: 16px;
+    z-index: 3; /* Asegura que el número esté por encima de la imagen */
+}
+
+.carta .numero.top {
+    top: 21px;
+    left: 24px;
+    font-family: Libre Baskerville;
+    font-weight: bold;
+}
+
+.carta .numero.bottom {
+    bottom: 21px;
+    right: 24px;
+    transform: rotate(180deg);
+    font-family: Libre Baskerville;
+    font-weight: bold;
+}
+
+.carta .imagen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2; /* Coloca la imagen detrás de los números */
+}
+
+.carta .imagen img {
+    width: 100%; /* Asegura que la imagen ocupe todo el contenedor */
+    height: 100%; /* Asegura que la imagen ocupe toda la altura */
+    object-fit: cover; /* Recorta la imagen si no cabe en el contenedor */
+}
+
+/* Ajustes individuales por ID */
+#carta-esther {
+    width: 192px; /* Cambia el tamaño según lo necesario */
+    height: 318px;
+    object-position: top; /* Controla la posición visible (top, center, bottom, etc.) */
+    transform: scale(1.090); /* Agranda la imagen en un 20% */
+    clip-path: inset(1px 2px 1px 3px); /* Recorta 20px desde el lado derecho */
+}
+
+
+#carta-ivan {
+    width: 190px; /* Cambia el tamaño según lo necesario */
+    height: 316px;
+    object-position: top; /* Controla la posición visible (top, center, bottom, etc.) */
+    transform: scale(1.090); /* Agranda la imagen en un 20% */
+    margin-left: -4px;
+    margin-top: 1px;
+    clip-path: inset(0 0 0 3px); /* Recorta 20px desde el lado derecho */
+
+}
+
+#carta-adrian {
+    width: 188px; /* Cambia el tamaño según lo necesario */
+    height: 316px;
+    object-position: top; /* Controla la posición visible (top, center, bottom, etc.) */
+    transform: scale(1.09); /* Agranda la imagen en un 20% */
+}
+
+
+#carta-max {
+    width: 190px; /* Cambia el tamaño según lo necesario */
+    height: 318px;
+    object-position: top; /* Controla la posición visible (top, center, bottom, etc.) */
+    transform: scale(1.08); /* Agranda la imagen en un 20% */
+    clip-path: inset(0 0 0 5px); /* Recorta 20px desde el lado derecho */
+}
+
+
+/* Aseguramos que el hover solo active el desplegable si es hijo directo de la carta */
+
+.desplegable {
+    position: absolute;  /* Cambiado a absolute para controlar mejor la posición respecto a su contenedor */
+    background-color: white;
+    color: black;
+    width: 209px;
+    height: 60px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Inicialmente oculto */
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.3s ease; /* Animación de la opacidad y movimiento */
+    z-index: -1; /* Colocamos el desplegable detrás de la carta */
+
+}
+
+/* Mostrar desplegable al hacer hover */
+
+
+.carta#c-esther:hover ~ .desplegable#info-esther {
+    opacity: 1;
+    visibility: visible; 
+    transform: translateY(50px); 
+    top: 80%; /* Posición inicial en la parte superior del contenedor */
+    left: 3.9%; /* Centrado horizontal */
+}
+
+
+.carta#c-ivan:hover ~ .desplegable#info-ivan {
+    top: 80%; /* Posición inicial en la parte superior del contenedor */
+    left: 28.9%; /* Centrado horizontal */
+    opacity: 1; 
+    visibility: visible; 
+    transform: translateY(50px); 
+}
+
+.carta#c-adrian:hover ~ .desplegable#info-adrian {
+    top: 80%; /* Posición inicial en la parte superior del contenedor */
+    left: 53.9%; /* Centrado horizontal */
+    opacity: 1; 
+    visibility: visible; 
+    transform: translateY(50px); 
+}
+
+.carta#c-max:hover ~ .desplegable#info-max {
+    top: 80%; /* Posición inicial en la parte superior del contenedor */
+    left: 78.9%; /* Centrado horizontal */
+    opacity: 1; 
+    visibility: visible; 
+    transform: translateY(50px); 
+}
+
+.carta .imagen img#img-esther {
+    width: 150px;
+    height: 200px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--black-olive);
+    color: white;
+    font-size: 1.1em;
+    height: 100px;
+    margin-bottom: 6px;
+    margin-top: 50px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+footer .back-to-top {
+    margin-top: 20px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#back-to-top {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: var(--hunyadi-yellow);
+    background-color: var(--licorice);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background-color: var(--sky-blue);
+    color: var(--licorice);
+}
