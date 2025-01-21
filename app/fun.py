@@ -339,7 +339,6 @@ def humanRound(id,mazo_keys,ronda):
 
 #jugar
 def play_game():
-    show_header_dinamic("player game")
     print(cartas)
     print(context_game["game"])
     if len(cartas)==0:
