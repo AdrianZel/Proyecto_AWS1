@@ -1,2 +1,2 @@
-from app.fun import *
+from app.fun import SevenandHalf
 SevenandHalf()
