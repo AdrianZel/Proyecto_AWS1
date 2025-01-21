@@ -1,0 +1,401 @@
+/* Variables de color (CSS HEX, HSL, y RGB) */
+
+/* HEX */
+:root {
+    --fondo: #fffff4;
+    --raisin-black: #2c2726ff; /* Títulos */
+    --sky-blue: #81bec8ff; /* ??? */
+    --beige: #f5f3d7ff; /* Fondos */
+    --jasper: #DA5647; /* ??? */
+    --black-olive: #4b4741ff; /* Navegación y subtítulos */
+    --hunyadi-yellow: #dda742ff; /* Botones y elementos pequeños */
+    --licorice: #211a17ff; /* Texto */
+}
+
+/* Estilos Generales */
+body {
+    font-family: 'EB Garamond', serif;
+    background-color: var(--fondo);
+    color: var(--licorice);
+    margin: 0;
+    padding: 0;
+}
+
+/* Imagen de fondo (hero-image) */
+.hero-image {
+    position: relative;
+    height: 400px; /* Ajusta según tus necesidades */
+    overflow: hidden;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.hero-image-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Asegura que la imagen quede detrás de los otros elementos */
+}
+
+.hero-image-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+}
+
+/* Contenedor del ícono */
+.icon-container {
+    position: absolute;
+    top: 7%; /* Ajusta la posición del ícono según lo necesites */
+    left: 2%; /* Puedes mover el ícono más hacia la izquierda o derecha */
+    z-index: 10;
+}
+
+.icon-container img {
+    width: 320px; /* Ajusta el tamaño del ícono */
+    height: auto;
+    border-radius: 17px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.8); /* Sombra hacia abajo, sin sombra lateral */
+    border-radius: 15px;
+}
+
+/* Título */
+.hero-title {
+    position: relative;
+    margin-top: 185px;    
+    left: 75%;
+    transform: translateX(-50%); /* Centrado horizontal */
+    z-index: 10;
+}
+
+.hero-title p {
+    font-size: 74px;
+    font-weight: bold;
+    color: var(--raisin-black); /* Gris oscuro */
+    margin-top: -22px;
+    font-family: Lora;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo del panel de navegación */
+nav {
+    background-color: transparent;
+    padding: 30px;
+    margin: 40px;
+    display: flex;
+    justify-content: center; /* Centra el contenido dentro del nav */
+    align-items: center;
+    position: relative;
+    width: 54%; /* Ajusta el ancho deseado */
+    margin: 0 auto;
+    margin-left: 605px;
+    border: none;
+    z-index: 1; /* Asegura que ::before esté visible */
+}
+
+nav::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 53%; /* Inicia desde el centro */
+    transform: translateX(-50%) scaleX(0); /* Inicialmente contraída */
+    width: 90%; /* Longitud total de la línea */
+    height: 2px; /* Grosor de la línea */
+    background-color: rgba(0, 0, 0, 0.5); /* Color de la línea */
+    transform-origin: center; /* La línea se expande desde el centro */
+    animation: extend-nav-line 0.6s ease-out forwards; /* Aplica la animación */
+    animation-delay: 0.2s; /* Asegura que no haya retraso en la animación */
+
+}
+
+/* Animación para extender la línea */
+@keyframes extend-nav-line {
+    0% {
+        transform: translateX(-50%) scaleX(0); /* La línea está contraída */
+    }
+    100% {
+        transform: translateX(-50%) scaleX(1); /* La línea se extiende */
+    }
+}
+
+
+nav .menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+    margin-left: 55px;
+    display: flex;
+    align-items: center;
+}
+
+nav .menu li {
+    margin: 0 38px;
+    margin-right: 40px;
+}
+
+nav .menu a {
+    color: var(--black-olive);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 20px;
+    font-family: adamina;
+    font-weight: 600;
+}
+
+nav .menu a:hover {
+    color: var(--hunyadi-yellow);
+    transform: scale(1.1);
+}
+
+main {
+    padding: 50px;
+}
+
+h1 {
+    color: var(--jasper);
+    font-size: 36px;
+}
+
+h2 {
+    color: var(--black-olive);
+    font-size: 24px;
+}
+
+h3 {
+    color: var(--black-olive);
+    font-size: 22px;
+    margin-top: 28px;
+    margin-bottom: 5px;
+}
+
+h4 {
+    color: var(--black-olive);
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+p {
+    margin-bottom: 25px;
+    line-height: 1.5;
+    font-size: 18px;
+}
+
+.text-blocks {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+
+/* Bloque de texto 1 */
+.intro {
+    background-color: #fffeee;
+    padding: 55px;
+    width: 45%;
+    height: 1420px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 4px rgba(1, 1, 1, 0.2);
+    position: relative;
+    top: -110px;
+    right: 20px;
+}
+
+.decoracion-bloque {
+    content: '';
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    right: 5%;
+    bottom: 3%;
+    border: 3px solid var(--hunyadi-yellow);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.decoracion-bloque::before {
+    background-color: #fffeee;
+    content: '';
+    position: absolute;
+    top: -1%;
+    left: 30%;
+    right: 30%;
+    bottom: 99%;
+    max-width: 90%;
+    max-height: 90%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.decoracion-bloque::after {
+    content: '';
+    background-color: #fffeee;
+    position: absolute;
+    top: 99%;
+    left: 30%;
+    right: 30%;
+    bottom: -1%;
+    pointer-events: none;
+    z-index: 1;
+    padding: 20px;
+}
+
+.picture1 {
+    width: 95%; /* Ajusta el tamaño de la imagen al 100% del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin-top: 23px;
+    margin-left: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave alrededor de la imagen */
+    position: relative; /* Necesario para que el pie-de-foto se posicione relativo a la imagen */
+    transition: transform 0.3s ease; /* Transición para el efecto de expansión */
+}
+.picture1:hover {
+    transform: scale(1.05); /* Expande la imagen en un 5% cuando se hace hover */
+}
+
+/* Estilo del contenedor de la imagen */
+.picture2 {
+    float: right; /* Alinea la imagen a la derecha */
+    width: 380px; /* Establece el ancho del contenedor */
+    height: 220px; /* Establece la altura del contenedor */
+    margin-top: 5px; /* Espacio superior */
+    margin-left: 15px; /* Espacio izquierdo */
+    bottom: 15px;
+    margin-bottom: 15px; /* Espacio inferior */
+    position: relative; /* Necesario para el comportamiento de la imagen */
+    transition: transform 0.3s ease; /* Transición para el efecto de expansión */
+}
+
+.picture2:hover {
+    transform: scale(1.05); /* Expande la imagen en un 5% cuando se hace hover */
+}
+
+/* Estilo para la imagen */
+.picture2 img {
+    width: 95%; /* La imagen se adapta al ancho del contenedor */
+    height: 95%; /* La imagen se adapta a la altura del contenedor */
+    object-fit: cover; /* La imagen cubre todo el espacio sin distorsionarse */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave alrededor de la imagen */
+}
+
+/* Aseguramos que el texto fluya correctamente */
+.content::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+.pie-de-foto {
+    text-align: center;
+    margin-top: -1px;
+    font-size: 14px;
+    color: rgb(132, 121, 112);
+    position: absolute; /* Posiciona el pie justo debajo de la imagen */
+    top: 93%; /* Lo coloca justo debajo de la imagen */
+    left: 0;
+    right: 0;
+    opacity: 0; /* Inicialmente oculto */
+    visibility: hidden; /* También oculto para evitar el uso de espacio */
+    transform: translateY(-20px); /* Inicialmente desplazado hacia abajo */
+    transition: opacity 0.3s ease, visibility 0s 0.3s, transform 0.3s ease; /* Animación suave */
+}
+
+.picture1:hover + .pie-de-foto {
+    opacity: 1; /* Muestra el pie de foto */
+    visibility: visible; /* Lo hace visible */
+    transform: translateY(0); /* Desplaza el pie de foto hacia su posición original */
+    transition: opacity 0.3s ease, visibility 0s 0s, transform 0.3s ease; /* Transición inmediata */
+}
+
+.pie-de-foto2 {
+    text-align: right;
+    font-size: 15px;
+    margin-top: 3px;
+    margin-right: 14px;
+    color: rgb(132, 121, 112);
+    position: absolute; /* Posiciona el pie justo debajo de la imagen */
+    top: 100%; /* Lo coloca justo debajo de la imagen */
+    left: 0;
+    right: 0;
+    opacity: 0; /* Inicialmente oculto */
+    visibility: hidden; /* También oculto para evitar el uso de espacio */
+    transform: translateY(-20px); /* Inicialmente desplazado hacia abajo */
+    transition: opacity 0.3s ease, visibility 0s 0.3s, transform 0.3s ease; /* Animación suave */
+}
+
+.picture2:hover .pie-de-foto2 {
+    opacity: 1; /* Muestra el pie de foto */
+    visibility: visible; /* Lo hace visible */
+    transform: translateY(0); /* Desplaza el pie de foto hacia su posición original */
+    transition: opacity 0.3s ease, visibility 0s 0s, transform 0.3s ease; /* Transición inmediata */
+}
+
+
+
+/* Bloque de texto 2 */
+.rules-container {
+    background-color: transparent;
+    padding: 20px;
+    width: 940px;
+    margin-top: -50px;
+    margin-left: -20px;
+}
+
+.tutorial-link {
+    color: var(--sky-blue);
+    text-decoration: none;
+}
+
+.tutorial-link:hover {
+    text-decoration: underline; /* Esto subraya el texto al pasar el mouse */
+}
+
+
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--black-olive);
+    color: white;
+    font-size: 1.1em;
+    height: 100px;
+    margin-bottom: 6px;
+    margin-top: 50px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+footer .back-to-top {
+    margin-top: 20px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#back-to-top {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: var(--hunyadi-yellow);
+    background-color: var(--licorice);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background-color: var(--sky-blue);
+    color: var(--licorice);
+}
