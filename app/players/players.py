@@ -1,7 +1,7 @@
-from app.headers import *
+from app.players.headers import *
 from app.players.utils import (print_data_two, print_from_two_lists, set_dni_validate, generar_dni_bot,
                                dni_validate, get_confirm, get_profile_name, set_name, set_profile_player)
-from database.datos import (insertaPlayer, datos_jugadores, players, deletePlayer, FULL_SCREEN, MARGIN_SCREEN)
+from database.datos import (insertaPlayer, datos_jugadores, players, deletePlayer, FULL_SCREEN,MARGIN_SCREEN)
 
 def set_human_player():
     """
@@ -129,15 +129,11 @@ def remove_player():
         print(MARGIN_SCREEN + msg_opt)
         dni = input(MARGIN_SCREEN + " ")
 
+    player_name = players[dni[1:]]['name']
 
     if dni == "-1":
         return False
     else:
-        try:
-            player_name = players[dni[1:]]['name']
-            deletePlayer(dni[1:])
-            print(MARGIN_SCREEN + "{} has been deleted".format(player_name))
-        except:
-            print("Something went wrong on {} with DNI".format(type(players), dni[1:]))
-
+        deletePlayer(dni[1:])
+        print(MARGIN_SCREEN + "{} has been deleted".format(player_name))
         return True
