@@ -1,4 +1,19 @@
+from datetime import datetime
+from idlelib.multicall import MC_ENTER
+
 import pymysql
+import os
+
+
+
+def write_log(msg,level="INFO"):
+    try:
+        with open("app.log", "a") as log_file:
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            log_file.write(f"{timestamp} [{level}] {msg}\n")
+    except FileNotFoundError:
+        os.makedirs("logs",exist_ok=True)  # Crear carpeta si no existe
+        write_log(msg, level)  # Llamar nuevamente la función
 
 
 #recolectar datos del SQL y devuelve la arrays (lista de tuplas)
@@ -11,7 +26,7 @@ def select_query(query):
             password='Qu13r0#S3r#T0r3r0!',
             database='sevenandhalf'
         )
-        print("Conexión exitosa a la base de datos")
+        write_log("Conexión exitosa a la base de datos","DEBUG")
 
         # Crear un cursor para ejecutar la consulta
         with connection.cursor() as cursor:
@@ -24,11 +39,11 @@ def select_query(query):
             return results
 
     except pymysql.MySQLError as e:
-        print(f"Error al ejecutar la consulta: {e}")
+        write_log(f"Error al ejecutar la consulta: {e}","ERROR")
     finally:
         if 'connection' in locals() and connection:
             connection.close()
-            print("Conexión cerrada")
+            write_log("Conexión cerrada","DEBUG")
 
 #para insertar a base de datos many=1 si insertaras varias rows
 def insert_query(query,data,many=1):
@@ -41,7 +56,7 @@ def insert_query(query,data,many=1):
             database='sevenandhalf',
         )
         cursor = conn.cursor()
-
+        write_log("Conexión exitosa a la base de datos", "DEBUG")
         # Insertar datos en la tabla partida
         if many==1:
             cursor.executemany(query,data)
@@ -49,10 +64,10 @@ def insert_query(query,data,many=1):
             cursor.execute(query,data)
 
         conn.commit()  # Confirmar los cambios
-        print("Datos insertados en la tabla partida")
+        write_log("Datos insertados en la tabla partida","DEBUG")
 
     except pymysql.MySQLError as e:
-        print("Error al insertar datos:", e)
+        write_log("Error al insertar datos: "+str(e),"ERROR")
 
     finally:
         if conn:
@@ -142,14 +157,13 @@ def get_ranking():
 # Función para definir el deck con el que se jugará la partida
 def get_cards_deck():
     # las opciones (esto se usará luego con la función de menús)
-    print("\n--- Set Card's Deck ---")
-    dato=select_query("select * from deck")
-    question=""
+    dato = select_query("select * from deck")
+    question=("\n"+"".center(60)+"--- Set Card's Deck ---\n")
     for i in dato:
-        question=str(i[0])+") " + i[1] + ": " + i[2]
-        print(question)
+        question+="".center(50)+(str(i[0])+") " + i[1] + ": " + i[2])+"\n"
+    question+="".center(50)+"Choose a deck (1-3): "
     while True:
-        option = input("Choose a deck (1-3): ")
+        option = input(question)
         if option.isdigit() and int(option) >= 1 and int(option) <= 3:
             option = int(option)
             if option == 1:
@@ -165,4 +179,7 @@ def get_cards_deck():
             input("Invalid option. Please choose a number between 1 and 3.".center(150))
     selected_deck = select_query(f"select * from card WHERE deck_id = {option}")
     return selected_deck
+
+
+
 
