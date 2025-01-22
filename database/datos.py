@@ -54,6 +54,7 @@ reports_menu = ["Initial card more repeated by each user, \n"+" ".center(margen_
                 "Average bet of the last round of each game."+"\n",
                 "Go back"]
 
+reports_menu_6=["Rounds won by the bank in each game. Distinguishing user.","Rounds won by the bank in each game. Without distinguishing user.","Go back."]
 consultas = {3: ["""
     SELECT 
         prg.game_id AS partida_id, 
@@ -192,7 +193,7 @@ WHERE
     )
 GROUP BY 
     prg.game_id;
-           """, ["ID game", "Last round's avg bet"]]
-
+           """, ["ID game", "Last round's avg bet"]],
+             6:""
              }
 

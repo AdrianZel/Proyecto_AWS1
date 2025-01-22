@@ -244,6 +244,30 @@ def show_header_reports2() -> None:
     print(HORIZONTAL_LINE)
     print()
 
+def show_header_play_game():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(HORIZONTAL_LINE)
+    print("""
+                                         .-~~-.               /\                 /\             
+                                        {      }            .'  `.             .'  `.         .-~~~-__-~~~-.
+                                     .-~-.    .-~-.        '      `.          '      `.      {              }
+                                    {              }     <          >      .'          `.     `.          .'
+                                     `.__.'||`.__.'       `.      .'      {              }      `.      .'
+                                           ||               `.  .'         ~-...-||-...-~         `.  .'
+                                          '--`                \/                 ||                 \/
+                                                                                '--`
+    """)
+    print(HORIZONTAL_LINE)
+    print()
+
+
+
+
+
+
+
+
+
 def show_header_dinamic(title="Reports") -> None:
     """
     Cabecera dinamica
