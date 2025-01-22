@@ -1,0 +1,516 @@
+2025-01-20 19:10:06 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:16:30 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:16:30 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:16:30 [INFO] Inicio Sesion
+2025-01-20 19:16:45 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:16:45 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:16:50 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:16:50 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:16:57 [INFO] Cierre Sesion
+2025-01-20 19:31:04 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:31:04 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:31:04 [INFO] Inicio Sesion
+2025-01-20 19:31:10 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:31:10 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:31:13 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:31:13 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:44:17 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:44:17 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:44:17 [INFO] Inicio Sesion
+2025-01-20 19:44:24 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:44:24 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:44:26 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:44:26 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:48:43 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:48:43 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:48:44 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:48:44 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 19:48:44 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:48:44 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 19:48:44 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:48:44 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 19:55:22 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:55:22 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:55:22 [INFO] Inicio Sesion
+2025-01-20 19:55:25 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:55:25 [DEBUG] Conexi髇 cerrada
+2025-01-20 19:55:38 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 19:55:38 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:13:59 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:13:59 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:13:59 [INFO] Inicio Sesion
+2025-01-20 20:14:05 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:14:05 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:14:07 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:14:07 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:14:10 [INFO] setGame Priority iniciado
+2025-01-20 20:14:10 [INFO] barajeo_carta() iniciado
+2025-01-20 20:14:10 [INFO] resetPoints() iniciado
+2025-01-20 20:14:10 [INFO] barajeo_carta() iniciado
+2025-01-20 20:19:12 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:19:12 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:19:12 [INFO] Inicio Sesion
+2025-01-20 20:19:15 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:19:15 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:19:18 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:19:18 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:19:24 [INFO] setGame Priority iniciado
+2025-01-20 20:19:24 [INFO] barajeo_carta() iniciado
+2025-01-20 20:19:24 [INFO] resetPoints() iniciado
+2025-01-20 20:19:24 [INFO] barajeo_carta() iniciado
+2025-01-20 20:20:13 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:20:13 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:20:14 [INFO] fill_player_game() iniciado
+2025-01-20 20:20:14 [INFO] fill_player_game() iniciado
+2025-01-20 20:20:14 [INFO] fill_player_game() iniciado
+2025-01-20 20:20:14 [INFO] fill_player_game() iniciado
+2025-01-20 20:20:14 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:20:14 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:20:14 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:20:14 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:20:14 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:20:14 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:20:27 [INFO] setGame Priority iniciado
+2025-01-20 20:20:27 [INFO] barajeo_carta() iniciado
+2025-01-20 20:20:27 [INFO] resetPoints() iniciado
+2025-01-20 20:20:27 [INFO] barajeo_carta() iniciado
+2025-01-20 20:24:00 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:24:00 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:24:00 [INFO] Inicio Sesion
+2025-01-20 20:24:04 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:24:05 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:24:07 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:24:07 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:24:11 [INFO] setGame Priority iniciado
+2025-01-20 20:24:11 [INFO] barajeo_carta() iniciado
+2025-01-20 20:24:11 [INFO] resetPoints() iniciado
+2025-01-20 20:24:11 [INFO] barajeo_carta() iniciado
+2025-01-20 20:35:45 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:35:45 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:35:45 [INFO] Inicio Sesion
+2025-01-20 20:35:49 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:35:49 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:35:51 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:35:51 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:35:54 [INFO] setGame Priority iniciado
+2025-01-20 20:35:54 [INFO] barajeo_carta() iniciado
+2025-01-20 20:35:54 [INFO] resetPoints() iniciado
+2025-01-20 20:35:54 [INFO] barajeo_carta() iniciado
+2025-01-20 20:37:01 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:37:01 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:37:01 [INFO] Inicio Sesion
+2025-01-20 20:37:04 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:37:04 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:37:06 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:37:06 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:37:10 [INFO] setGame Priority iniciado
+2025-01-20 20:37:10 [INFO] barajeo_carta() iniciado
+2025-01-20 20:37:10 [INFO] resetPoints() iniciado
+2025-01-20 20:37:10 [INFO] barajeo_carta() iniciado
+2025-01-20 20:38:57 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:38:57 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:38:57 [INFO] Inicio Sesion
+2025-01-20 20:38:59 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:38:59 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:39:02 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:39:02 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:39:07 [INFO] setGame Priority iniciado
+2025-01-20 20:39:07 [INFO] barajeo_carta() iniciado
+2025-01-20 20:39:07 [INFO] resetPoints() iniciado
+2025-01-20 20:39:07 [INFO] barajeo_carta() iniciado
+2025-01-20 20:39:47 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:39:47 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:39:48 [INFO] fill_player_game() iniciado
+2025-01-20 20:39:48 [INFO] fill_player_game() iniciado
+2025-01-20 20:39:48 [INFO] fill_player_game() iniciado
+2025-01-20 20:39:48 [INFO] fill_player_game() iniciado
+2025-01-20 20:39:49 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:39:49 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:39:49 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:39:49 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:39:49 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:39:49 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:50:55 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:50:55 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:50:55 [INFO] Inicio Sesion
+2025-01-20 20:50:57 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:50:57 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:50:57 [INFO] Inicio Sesion
+2025-01-20 20:51:01 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:51:01 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:51:03 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:51:03 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:51:21 [INFO] setGame Priority iniciado
+2025-01-20 20:51:21 [INFO] barajeo_carta() iniciado
+2025-01-20 20:51:21 [INFO] resetPoints() iniciado
+2025-01-20 20:51:21 [INFO] barajeo_carta() iniciado
+2025-01-20 20:52:36 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:52:36 [DEBUG] Conexi髇 cerrada
+2025-01-20 20:52:37 [INFO] fill_player_game() iniciado
+2025-01-20 20:52:37 [INFO] fill_player_game() iniciado
+2025-01-20 20:52:37 [INFO] fill_player_game() iniciado
+2025-01-20 20:52:37 [INFO] fill_player_game() iniciado
+2025-01-20 20:52:37 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:52:37 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:52:37 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:52:37 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 20:52:37 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 20:52:37 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 23:06:03 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:06:03 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:06:03 [INFO] Inicio Sesion
+2025-01-20 23:06:22 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:06:22 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:06:30 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:06:30 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:10:27 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:10:27 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:10:27 [INFO] Inicio Sesion
+2025-01-20 23:10:30 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:10:30 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:11:30 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:11:30 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:11:30 [INFO] Inicio Sesion
+2025-01-20 23:11:34 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:11:34 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:12:46 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:12:46 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:12:46 [INFO] Inicio Sesion
+2025-01-20 23:12:50 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:12:50 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:13:41 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:13:41 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:13:41 [INFO] Inicio Sesion
+2025-01-20 23:13:46 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:13:46 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:14:16 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:14:16 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:20:23 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:20:23 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:20:23 [INFO] Inicio Sesion
+2025-01-20 23:20:27 [INFO] set_cards_deck() used
+2025-01-20 23:20:27 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:20:27 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:20:29 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:20:29 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:20:33 [INFO] Cierre Sesion
+2025-01-20 23:21:05 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:21:05 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:21:05 [INFO] Inicio Sesion
+2025-01-20 23:21:09 [INFO] set_cards_deck() used
+2025-01-20 23:21:09 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:21:10 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:21:11 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:21:11 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:21:20 [INFO] ranking() used
+2025-01-20 23:21:20 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:21:20 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:21:36 [INFO] interrupt End sesion
+2025-01-20 23:26:31 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:26:31 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:26:31 [INFO] Inicio Sesion
+2025-01-20 23:26:36 [INFO] set_cards_deck() used
+2025-01-20 23:26:36 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:26:36 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:26:38 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:26:38 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:26:41 [INFO] play_game() used
+2025-01-20 23:26:41 [INFO] setGame Priority iniciado
+2025-01-20 23:26:41 [INFO] barajeo_carta() iniciado
+2025-01-20 23:26:41 [INFO] resetPoints() iniciado
+2025-01-20 23:26:41 [INFO] barajeo_carta() iniciado
+2025-01-20 23:28:25 [WARNING] interrupt End sesion
+2025-01-20 23:28:26 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:28:26 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:28:26 [INFO] Inicio Sesion
+2025-01-20 23:28:31 [INFO] set_cards_deck() used
+2025-01-20 23:28:31 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:28:31 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:28:39 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:28:39 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:28:42 [INFO] play_game() used
+2025-01-20 23:28:42 [INFO] setGame Priority iniciado
+2025-01-20 23:28:42 [INFO] barajeo_carta() iniciado
+2025-01-20 23:28:42 [INFO] resetPoints() iniciado
+2025-01-20 23:28:42 [INFO] barajeo_carta() iniciado
+2025-01-20 23:30:07 [INFO] fill_player_game_round() used
+2025-01-20 23:30:22 [INFO] getID() used
+2025-01-20 23:30:22 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:30:22 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:30:22 [INFO] fill_player_game() used
+2025-01-20 23:30:22 [INFO] fill_player_game() iniciado
+2025-01-20 23:30:22 [INFO] fill_player_game() iniciado
+2025-01-20 23:30:22 [INFO] fill_player_game() iniciado
+2025-01-20 23:30:22 [INFO] fill_player_game() iniciado
+2025-01-20 23:30:22 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:30:22 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 23:30:22 [INFO] insertCardGame() used
+2025-01-20 23:30:22 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:30:22 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 23:30:22 [INFO] insertarPlayGame() used
+2025-01-20 23:30:22 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:30:22 [DEBUG] Datos insertados en la tabla partida
+2025-01-20 23:30:22 [INFO] insertarPlayGameRound() used
+2025-01-20 23:30:22 [INFO] play_game() end
+2025-01-20 23:31:28 [INFO] reports() used
+2025-01-20 23:31:30 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:31:30 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:31:41 [INFO] reports() end
+2025-01-20 23:31:44 [INFO] Cierre Sesion
+2025-01-20 23:37:49 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:37:49 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:37:49 [INFO] Inicio Sesion
+2025-01-20 23:37:52 [INFO] set_cards_deck() used
+2025-01-20 23:37:53 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:37:53 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:37:53 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:37:54 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:37:56 [INFO] play_game() used
+2025-01-20 23:37:56 [INFO] setGame Priority iniciado
+2025-01-20 23:37:56 [INFO] barajeo_carta() iniciado
+2025-01-20 23:37:56 [INFO] resetPoints() iniciado
+2025-01-20 23:37:56 [INFO] barajeo_carta() iniciado
+2025-01-20 23:38:00 [WARNING] interrupt End sesion
+2025-01-20 23:38:31 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:38:31 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:38:31 [INFO] Inicio Sesion
+2025-01-20 23:38:34 [INFO] set_cards_deck() used
+2025-01-20 23:38:34 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:38:34 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:38:35 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:38:35 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:38:37 [INFO] play_game() used
+2025-01-20 23:38:37 [INFO] setGame Priority iniciado
+2025-01-20 23:38:37 [INFO] barajeo_carta() iniciado
+2025-01-20 23:38:37 [INFO] resetPoints() iniciado
+2025-01-20 23:38:37 [INFO] barajeo_carta() iniciado
+2025-01-20 23:38:40 [WARNING] interrupt End sesion
+2025-01-20 23:40:30 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:40:30 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:40:30 [INFO] Inicio Sesion
+2025-01-20 23:40:32 [INFO] set_cards_deck() used
+2025-01-20 23:40:32 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:40:32 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:40:34 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:40:34 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:40:37 [INFO] play_game() used
+2025-01-20 23:40:37 [INFO] setGame Priority iniciado
+2025-01-20 23:40:37 [INFO] barajeo_carta() iniciado
+2025-01-20 23:40:37 [INFO] resetPoints() iniciado
+2025-01-20 23:40:37 [INFO] barajeo_carta() iniciado
+2025-01-20 23:40:43 [INFO] Iniciado Bets
+2025-01-20 23:40:49 [INFO] Iniciado Bets
+2025-01-20 23:40:49 [WARNING] interrupt End sesion
+2025-01-20 23:45:40 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:45:40 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:45:40 [INFO] Inicio Sesion
+2025-01-20 23:45:47 [INFO] set_cards_deck() used
+2025-01-20 23:45:47 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:45:47 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:45:48 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:45:48 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:45:51 [INFO] play_game() used
+2025-01-20 23:45:51 [INFO] setGame Priority iniciado
+2025-01-20 23:45:51 [INFO] barajeo_carta() iniciado
+2025-01-20 23:45:51 [INFO] resetPoints() iniciado
+2025-01-20 23:45:51 [INFO] barajeo_carta() iniciado
+2025-01-20 23:45:52 [INFO] Iniciados Bets
+2025-01-20 23:46:38 [INFO] fill_player_game_round() used
+2025-01-20 23:47:15 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:47:15 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:47:15 [INFO] Inicio Sesion
+2025-01-20 23:47:29 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:47:30 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:47:30 [INFO] Inicio Sesion
+2025-01-20 23:47:59 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:47:59 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:47:59 [INFO] Inicio Sesion
+2025-01-20 23:48:03 [INFO] set_cards_deck() used
+2025-01-20 23:48:03 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:48:03 [DEBUG] Conexi髇 cerrada
+2025-01-20 23:48:05 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-20 23:48:05 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:05:50 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:05:50 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:05:50 [INFO] Inicio Sesion
+2025-01-21 10:05:53 [INFO] add_show_remove() used
+2025-01-21 10:05:59 [INFO] setting() used
+2025-01-21 10:06:02 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:06:02 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:06:08 [INFO] set_cards_deck() used
+2025-01-21 10:06:08 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:06:08 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:06:14 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:06:14 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:06:16 [INFO] setRounds() used
+2025-01-21 10:06:24 [INFO] play_game() used
+2025-01-21 10:06:24 [INFO] setGame Priority iniciado
+2025-01-21 10:06:24 [INFO] barajeo_carta() iniciado
+2025-01-21 10:06:24 [INFO] resetPoints() iniciado
+2025-01-21 10:06:24 [INFO] barajeo_carta() iniciado
+2025-01-21 10:08:21 [INFO] Iniciados Bets
+2025-01-21 10:08:35 [INFO] Iniciados Bets
+2025-01-21 10:08:55 [INFO] fill_player_game_round() used
+2025-01-21 10:09:01 [INFO] getID() used
+2025-01-21 10:09:01 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:01 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:09:01 [INFO] fill_player_game() used
+2025-01-21 10:09:01 [INFO] fill_player_game() iniciado
+2025-01-21 10:09:01 [INFO] fill_player_game() iniciado
+2025-01-21 10:09:01 [INFO] fill_player_game() iniciado
+2025-01-21 10:09:01 [INFO] fill_player_game() iniciado
+2025-01-21 10:09:01 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:01 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 10:09:01 [INFO] insertCardGame() used
+2025-01-21 10:09:01 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:02 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 10:09:02 [INFO] insertarPlayGame() used
+2025-01-21 10:09:02 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:02 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 10:09:02 [INFO] insertarPlayGameRound() used
+2025-01-21 10:09:02 [INFO] play_game() end
+2025-01-21 10:09:08 [INFO] ranking() used
+2025-01-21 10:09:08 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:08 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:09:22 [INFO] ranking() end
+2025-01-21 10:09:25 [INFO] reports() used
+2025-01-21 10:09:27 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:27 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:09:33 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:33 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:09:39 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:09:39 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:10:02 [INFO] reports() end
+2025-01-21 10:10:09 [INFO] Cierre Sesion
+2025-01-21 10:17:20 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:17:20 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:17:20 [INFO] Inicio Sesion
+2025-01-21 10:17:22 [INFO] setting() used
+2025-01-21 10:17:25 [INFO] set_cards_deck() used
+2025-01-21 10:17:25 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:17:25 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:17:26 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:17:26 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:17:31 [INFO] play_game() used
+2025-01-21 10:17:31 [INFO] setGame Priority iniciado
+2025-01-21 10:17:31 [INFO] barajeo_carta() iniciado
+2025-01-21 10:17:31 [INFO] resetPoints() iniciado
+2025-01-21 10:17:31 [INFO] barajeo_carta() iniciado
+2025-01-21 10:17:42 [INFO] Iniciados Bets
+2025-01-21 10:20:06 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:20:06 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:20:06 [INFO] Inicio Sesion
+2025-01-21 10:20:08 [INFO] setting() used
+2025-01-21 10:20:08 [INFO] set_cards_deck() used
+2025-01-21 10:20:08 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:20:08 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:20:09 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:20:10 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:20:14 [INFO] play_game() used
+2025-01-21 10:20:14 [INFO] setGame Priority iniciado
+2025-01-21 10:20:14 [INFO] barajeo_carta() iniciado
+2025-01-21 10:20:14 [INFO] resetPoints() iniciado
+2025-01-21 10:20:14 [INFO] barajeo_carta() iniciado
+2025-01-21 10:20:17 [INFO] Iniciados Bets
+2025-01-21 10:21:26 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:21:26 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:21:26 [INFO] Inicio Sesion
+2025-01-21 10:21:36 [INFO] setting() used
+2025-01-21 10:21:38 [INFO] set_cards_deck() used
+2025-01-21 10:21:38 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:21:38 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:21:42 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:21:42 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:21:47 [INFO] play_game() used
+2025-01-21 10:21:47 [INFO] setGame Priority iniciado
+2025-01-21 10:21:47 [INFO] barajeo_carta() iniciado
+2025-01-21 10:21:47 [INFO] resetPoints() iniciado
+2025-01-21 10:21:47 [INFO] barajeo_carta() iniciado
+2025-01-21 10:23:42 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:23:42 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:23:42 [INFO] Inicio Sesion
+2025-01-21 10:23:44 [INFO] setting() used
+2025-01-21 10:23:46 [INFO] set_cards_deck() used
+2025-01-21 10:23:46 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:23:46 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:23:47 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:23:47 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:23:49 [INFO] play_game() used
+2025-01-21 10:23:49 [INFO] setGame Priority iniciado
+2025-01-21 10:23:49 [INFO] barajeo_carta() iniciado
+2025-01-21 10:23:49 [INFO] resetPoints() iniciado
+2025-01-21 10:23:49 [INFO] barajeo_carta() iniciado
+2025-01-21 10:24:54 [INFO] Iniciados Bets
+2025-01-21 10:25:44 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:25:44 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:25:44 [INFO] Inicio Sesion
+2025-01-21 10:25:57 [INFO] reports() used
+2025-01-21 10:26:10 [INFO] reports() end
+2025-01-21 10:26:12 [INFO] play_game() used
+2025-01-21 10:26:14 [INFO] play_game() end
+2025-01-21 10:26:16 [INFO] setting() used
+2025-01-21 10:26:17 [INFO] set_cards_deck() used
+2025-01-21 10:26:18 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:26:18 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:26:29 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:26:29 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:26:32 [INFO] setting() used
+2025-01-21 10:26:44 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:26:44 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:27:40 [INFO] play_game() used
+2025-01-21 10:27:40 [INFO] setGame Priority iniciado
+2025-01-21 10:27:40 [INFO] barajeo_carta() iniciado
+2025-01-21 10:27:40 [INFO] resetPoints() iniciado
+2025-01-21 10:27:40 [INFO] barajeo_carta() iniciado
+2025-01-21 10:29:13 [INFO] fill_player_game_round() used
+2025-01-21 10:29:16 [INFO] getID() used
+2025-01-21 10:29:16 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:29:16 [DEBUG] Conexi髇 cerrada
+2025-01-21 10:29:16 [INFO] fill_player_game() used
+2025-01-21 10:29:16 [INFO] fill_player_game() iniciado
+2025-01-21 10:29:16 [INFO] fill_player_game() iniciado
+2025-01-21 10:29:16 [INFO] fill_player_game() iniciado
+2025-01-21 10:29:16 [INFO] fill_player_game() iniciado
+2025-01-21 10:29:16 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:29:16 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 10:29:16 [INFO] insertCardGame() used
+2025-01-21 10:29:16 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:29:16 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 10:29:16 [INFO] insertarPlayGame() used
+2025-01-21 10:29:16 [DEBUG] Conexi髇 exitosa a la base de datos
+2025-01-21 10:29:17 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 10:29:17 [INFO] insertarPlayGameRound() used
+2025-01-21 10:29:17 [INFO] play_game() end
+2025-01-21 10:29:20 [INFO] Cierre Sesion
+2025-01-21 18:25:45 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:25:46 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:25:46 [INFO] Inicio Sesion
+2025-01-21 18:25:55 [INFO] add_show_remove() used
+2025-01-21 18:26:14 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:26:15 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 18:26:15 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:26:15 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:26:22 [ERROR] interrupt End sesion'1'
+2025-01-21 18:47:56 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:47:56 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:47:56 [INFO] Inicio Sesion
+2025-01-21 18:48:01 [INFO] add_show_remove() used
+2025-01-21 18:48:29 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:48:29 [DEBUG] Datos insertados en la tabla partida
+2025-01-21 18:48:30 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:48:30 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:48:59 [INFO] setting() used
+2025-01-21 18:49:05 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:49:05 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:49:14 [INFO] set_cards_deck() used
+2025-01-21 18:49:15 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:49:15 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:49:21 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:49:21 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:49:28 [INFO] ranking() used
+2025-01-21 18:49:29 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:49:29 [DEBUG] Conexi贸n cerrada
+2025-01-21 18:49:37 [INFO] ranking() end
+2025-01-21 18:49:39 [INFO] reports() used
+2025-01-21 18:49:43 [DEBUG] Conexi贸n exitosa a la base de datos
+2025-01-21 18:49:43 [DEBUG] Conexi贸n cerrada

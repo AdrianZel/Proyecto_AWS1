@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Metadatos principales -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del 7 y Medio</title>
+
+    <!-- Estilo principal -->
+    <link rel="stylesheet" href="../css/styles2.css">
+
+   <!-- Favicon del sitio -->
+   <link rel="icon" type="image/png" href="../images/favicon.png">
+
+    <!-- Fuentes externas (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Encabezado -->
+    <header>
+        <!-- Contenedor para el icono decorativo -->
+        <div class="icon-container">
+            <img src="../images/icono mini.webp" alt="Icono decorativo" class="hero-icon">
+        </div>
+
+        <!-- Menú de navegación -->
+        <nav>
+            <!-- Imagen decorativa del fondo del encabezado -->
+            <img src="../images/fondo1.jpg" alt="fondo" class="hero-icon">
+
+            <!-- Opciones del menú -->
+            <ul class="menu">
+                <li><a href="1indice.html">ÍNDICE</a></li>
+                <li><a href="2tutorial.html">TUTORIAL</a></li>
+                <li><a href="3equipo.html">EQUIPO</a></li>
+                <li><a href="4documentacion.html">DOCUMENTACIÓN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="fondo-equip">
+        <!-- Sección de introducción al tutorial -->
+        <section class="tutorial-info">
+            <!-- Título de la página -->
+            <div class="titulo-pagina">
+                <h1>Tutorial</h1>
+            </div>
+        </section>
+
+        <!-- Descripción del contenido -->
+        <section id="reglas">
+            <h2>Reglas del Juego</h2>
+            <p>El objetivo del juego es alcanzar una puntuación lo más cercana a 7 y medio sin pasarse. Las cartas tienen los siguientes valores:</p>
+            <ul>
+                <li>Cartas del 1 al 7: Su valor nominal (1, 2, 3, etc.).</li>
+                <li>Figuras (sota, caballo y rey): Valen 0.5 puntos cada una.</li>
+                <li>Cartas mayores de 7 (8, 9, 10): Se consideran figuras y también valen 0.5 puntos.</li>
+            </ul>
+            <p>Los jugadores pueden pedir cartas hasta que decidan plantarse o se pasen de 7.5. El crupier también juega, pero tiene reglas específicas para pedir cartas.</p>
+            <div class="cards-container">
+                <img src="../images/carta 7.jpg" alt="Carta 7">
+                <img src="../images/carta 8.jpg" alt="Carta 8">
+            </div>
+            <p>Por ejemplo, la suma de los valores de estas cartas no sería 15, si no 7.5, la puntuación máxima del juego.</p>
+        </section>
+        <section id="estrategia">
+            <h2>Estrategia Básica</h2>
+            <p>Para ganar, es importante calcular las probabilidades de no pasarse al pedir una nueva carta. Plantarse en puntuaciones superiores a 5.5 suele ser una estrategia segura, dependiendo de la puntuación visible del crupier.</p>
+        </section>
+        <section id="simulador" class="simulation">
+            <h2>Simulador de Puntuaciones</h2>
+            <p>Haz clic en el botón para generar dos cartas y calcular su puntuación.</p>
+            <button onclick="simularPuntuacion()">Generar Cartas</button>
+            <p id="resultado">Tu puntuación aparecerá aquí.</p>
+        </section>
+        <script>
+            function simularPuntuacion() {
+                const cartas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                const carta1 = cartas[Math.floor(Math.random() * cartas.length)];
+                const carta2 = cartas[Math.floor(Math.random() * cartas.length)];
+    
+                const valorCarta1 = carta1 > 7 ? 0.5 : carta1;
+                const valorCarta2 = carta2 > 7 ? 0.5 : carta2;
+    
+                const puntuacion = valorCarta1 + valorCarta2;
+                document.getElementById("resultado").textContent = 
+                    `Has sacado: ${carta1} y ${carta2}. ` +
+                    `El valor de tus cartas es: ${valorCarta1} y ${valorCarta2}. ` +
+                    `Tu puntuación total es: ${puntuacion.toFixed(1)}`;
+            }
+        </script>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="back-to-top">
+            <a href="#top" id="back-to-top">Volver arriba</a>
+          </div>
+        <p> © 2025 Juego del 7 y Medio. Proyecto realizado por <i>thesevenarmy</i></p>
+
+    </footer>
+</body>
+
+</html>
