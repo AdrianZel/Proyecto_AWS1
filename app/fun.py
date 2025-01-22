@@ -7,8 +7,26 @@ from app.xmlgenerate import generate_xml
 from database.datos import *
 
 #creacion de menus cards es para mostrar las cartas siesque esta jugando. si no se pone nada no hace nada
-def menus(lista,cards=""):
-    menu=cards
+def menus(lista):
+    menu=""
+    for i in range(len(lista)):
+        menu+=" ".center(margen_player)+str(i+1) + ") " + lista[i]+"\n"
+    menu+=" ".center(margen_player) +"-> Opcion: "
+    again="Invalid Option. Please, Use a number.".center(tamaño_pantalla)+"\n"+"Press enter to continue...".center(tamaño_pantalla)
+    while True:
+        opt =input(menu)
+        if not opt.isdigit():
+            input(again)
+        elif int(opt) not in range(1, len(lista)+1):
+            input(again)
+        else:
+            opt = int(opt)
+            return opt
+
+
+# creacion de menus cards es para mostrar las cartas siesque esta jugando. si no se pone nada no hace nada
+def menus_game(lista,roun,cards=""):
+    menu=roun+cards
     for i in range(len(lista)):
         menu+=" ".center(margen_player)+str(i+1) + ") " + lista[i]+"\n"
     menu+=" ".center(margen_player) +"-> Opcion: "
@@ -279,6 +297,7 @@ def gameStats(ronda=0,id=0):
     if id!=0:
         print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "="))
     datos=recojerDatos(context_game["game"])
+    datos+="Enter to continue".center(FULL_SCREEN)
     input(datos)
 
 #retorna true si pide carta
@@ -286,11 +305,17 @@ def pedir_carta(id,mazo):
     if players[id]["roundPoints"] > 7.5:
         input("You have exceeded the score limit!".center(FULL_SCREEN)+"\n"+"Enter to continue".center(FULL_SCREEN))
     else:
-        info="\n"+"".center(40)+f"The chance para exceed 7,5 = {calculaChance(id,mazo)} %"+"\n"+"".center(40)+"Are you sure do you want to order another card? Y/y = yes , another key = no\n"
-        opcion=input(info).upper()
-        if opcion == "Y":
+        chance=calculaChance(id,mazo)
+        if chance!=0:
+            info="\n"+"".center(40)+f"The chance para exceed 7,5 = {chance} %"+"\n"+"".center(40)+"Are you sure do you want to order another card? Y/y = yes , another key = no\n"
+            opcion=input(info).upper()
+            if opcion == "Y":
+                players[id]["cards"].append(mazo[-1])
+                players[id]["roundPoints"]+=cartas[mazo[-1]]["realValue"]
+                mazo.pop(-1)
+        else:
             players[id]["cards"].append(mazo[-1])
-            players[id]["roundPoints"]+=cartas[mazo[-1]]["realValue"]
+            players[id]["roundPoints"] += cartas[mazo[-1]]["realValue"]
             mazo.pop(-1)
 
 def bets(id):
@@ -331,29 +356,37 @@ def kill_player():
 def humanRound(id,mazo_keys,ronda):
     opcion=0
     while opcion<5 and players[id]["roundPoints"]<7.5:
-        print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "=") + "\n")
+        show_header_play_game()
+        roun="Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "=") + "\n"
         hand=showMano(players[id]["cards"],cartas,players[id]["roundPoints"])
-        opcion=menus(humanRound_menu,hand)
+        opcion=menus_game(humanRound_menu,roun,hand)
         if opcion == 1:
+            show_header_play_game()
             viewStats(id)
         elif opcion == 2:
+            show_header_play_game()
             gameStats(ronda,id)
         elif opcion == 3:
+            show_header_play_game()
             bets(id)
         elif opcion == 4:
+            show_header_play_game()
             pedir_carta(id, mazo_keys)
         elif opcion == 5:
+
             standarRound(id, mazo_keys)
         else:
             print("")
+    show_header_play_game()
     if players[id]["roundPoints"]>=7.5:
-        print(showMano(players[id]["cards"], cartas, players[id]["roundPoints"]))
+        print(roun+showMano(players[id]["cards"], cartas, players[id]["roundPoints"]))
         print("You got 7.5!".center(tamaño_pantalla) if players[id]["roundPoints"]==7.5 else "You exceeded the score limit!".center(tamaño_pantalla))
         input("Enter to continue".center(tamaño_pantalla))
-
+    else:
+        print(roun+showMano(players[id]["cards"], cartas, players[id]["roundPoints"]))
+        input("Enter to continue".center(tamaño_pantalla))
 #jugar
 def play_game():
-    show_header_dinamic("player game")
     # print(cartas)
     # print(context_game["game"])
     if len(cartas)==0:
@@ -378,8 +411,6 @@ def play_game():
     # print(context_game["game"])
     for i in context_game["game"]:
         start_points_game[i]=players[i]["points"]
-
-
     for ronda in range(1, context_game["round"] + 1):
         setBets()
         cartas_keys = barajeo_carta(cartas.keys())
@@ -387,12 +418,13 @@ def play_game():
 
         #turnos de jugadores
         for i in context_game["game"]:
-
             if players[i]["human"]:
                 humanRound(i, cartas_keys,ronda)
             else:
                 standarRound(i, cartas_keys)
+            show_header_play_game()
             gameStats(ronda,i)
+
         # fin dela ronda
 
         #guarda puntos iniciales de ronda
@@ -418,7 +450,7 @@ def play_game():
                 players[bank_candidates[-1]]["bank"], players[context_game["game"][-1]]["bank"] = \
                 players[context_game["game"][-1]]["bank"], players[bank_candidates[-1]]["bank"]
 
-
+        show_header_play_game()
         print("Fin de la ronda {}.".format(ronda).center(tamaño_pantalla,"="))
         gameStats()
         limpia_datos()
@@ -720,6 +752,15 @@ def reports():
             break
         elif opcion not in consultas.keys():
             input("Loading...".center(tamaño_pantalla))
+        elif opcion==6:
+            opcion=menus(reports_menu_6)
+            if opcion!=3:
+                if opcion==1:
+                    data = select_query(consultas[6.1][0])
+                    showConsultas(data, consultas[6.1][1], 6.1)
+                else:
+                    data = select_query(consultas[6.2][0])
+                    showConsultas(data, consultas[6.2][1], 6.2)
         else:
             data=select_query(consultas[opcion][0])
             showConsultas(data,consultas[opcion][1], opcion)
