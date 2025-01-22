@@ -157,7 +157,15 @@ def get_ranking():
 def get_cards_deck():
     # las opciones (esto se usará luego con la función de menús)
     dato = select_query("select * from deck")
-    question=("\n"+"".center(60)+"--- Set Card's Deck ---\n")
+    question="-"*150+"\n"+"""
+                                                       ██████╗ ███████╗ ██████╗██╗  ██╗███████╗                                                       
+                                                       ██╔══██╗██╔════╝██╔════╝██║ ██╔╝██╔════╝                                                       
+                                                       ██║  ██║█████╗  ██║     █████╔╝ ███████╗                                                       
+                                                       ██║  ██║██╔══╝  ██║     ██╔═██╗ ╚════██║                                                       
+                                                       ██████╔╝███████╗╚██████╗██║  ██╗███████║                                                       
+                                                       ╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝
+"""+"\n"+"-"*150
+    question+=("\n"+"".center(60)+"--- Set Card's Deck ---\n")
     for i in dato:
         question+="".center(50)+(str(i[0])+") " + i[1] + ": " + i[2])+"\n"
     question+="".center(50)+"Choose a deck (1-3): "

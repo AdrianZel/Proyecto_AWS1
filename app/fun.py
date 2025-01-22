@@ -10,9 +10,9 @@ from database.datos import *
 def menus(lista):
     menu=""
     for i in range(len(lista)):
-        menu+=" ".center(margen_player)+str(i+1) + ") " + lista[i]+"\n"
-    menu+=" ".center(margen_player) +"-> Opcion: "
-    again="Invalid Option. Please, Use a number.".center(tamaño_pantalla)+"\n"+"Press enter to continue...".center(tamaño_pantalla)
+        menu+=" ".center(MARGIN_PLAYER) + str(i + 1) + ") " + lista[i] + "\n"
+    menu+=" ".center(MARGIN_PLAYER) + "-> Opcion: "
+    again="Invalid Option. Please, Use a number.".center(FULL_SCREEN) + "\n" + "Press enter to continue...".center(FULL_SCREEN)
     while True:
         opt =input(menu)
         if not opt.isdigit():
@@ -28,10 +28,11 @@ def menus(lista):
 def menus_game(lista,roun,cards=""):
     menu=roun+cards
     for i in range(len(lista)):
-        menu+=" ".center(margen_player)+str(i+1) + ") " + lista[i]+"\n"
-    menu+=" ".center(margen_player) +"-> Opcion: "
-    again="Invalid Option. Please, Use a number.".center(tamaño_pantalla)+"\n"+"Press enter to continue...".center(tamaño_pantalla)
+        menu+=" ".center(MARGIN_PLAYER) + str(i + 1) + ") " + lista[i] + "\n"
+    menu+=" ".center(MARGIN_PLAYER) + "-> Opcion: "
+    again="Invalid Option. Please, Use a number.".center(FULL_SCREEN) + "\n" + "Press enter to continue...".center(FULL_SCREEN)
     while True:
+        show_header_play_game()
         opt =input(menu)
         if not opt.isdigit():
             input(again)
@@ -163,7 +164,10 @@ def bank_eliminated(id):
     for i in context_game["game"]:
         if id!=i:
             if players[i]["roundPoints"]>players[id]["roundPoints"] and players[i]["roundPoints"]<=7.5:
-                puntos_a_perder+=players[i]["bet"]
+                if players[i]["roundPoints"]==7.5:
+                    puntos_a_perder+=players[i]["bet"]*2
+                else:
+                    puntos_a_perder+=players[i]["bet"]
             else:
                 puntos_a_perder-=players[i]["bet"]
 
@@ -267,26 +271,26 @@ def cartas_usadas(id):
 
 #stats jugador
 def viewStats(id):
-    datos="stats of {}".format(players[id]["name"]).center(tamaño_pantalla,"*")+"\n"
+    datos="stats of {}".format(players[id]["name"]).center(FULL_SCREEN, "*") + "\n"
     for i in players_values:
         if i!="cards":
-            datos+=" ".center(margen_player)+i.ljust(espaciado_player)+str(players[id][i])+"\n"
+            datos+=" ".center(MARGIN_PLAYER) + i.ljust(PLAYER_SPACE) + str(players[id][i]) + "\n"
         else:
-            datos+=" ".center(margen_player)+i.ljust(espaciado_player)+str(cartas_usadas(id))+"\n"
+            datos+=" ".center(MARGIN_PLAYER) + i.ljust(PLAYER_SPACE) + str(cartas_usadas(id)) + "\n"
     input(datos)
 
 #recoje values de todos los jugadores, (context_game["game"])
 def recojerDatos(dato):
     datos=""
     for i in players_values:
-        datos+=i.ljust(margen_game)
+        datos+=i.ljust(MARGIN_GAME_SCREEN)
         for j in range(3 if len(dato)>3 else len(dato)):
             if i != "cards":
-                datos+=str(players[dato[j]][i]).ljust(espaciado_game)
+                datos+=str(players[dato[j]][i]).ljust(GAME_SPACE)
             else:
-                datos+=str(cartas_usadas(dato[j]).ljust(espaciado_game))
+                datos+=str(cartas_usadas(dato[j]).ljust(GAME_SPACE))
         datos+="\n"
-    datos+="\n"+"_"*tamaño_pantalla+"\n"
+    datos+="\n" +"_" * FULL_SCREEN + "\n"
     if len(dato)>3:
         datos+=recojerDatos(dato[3:])
     return datos
@@ -295,7 +299,7 @@ def recojerDatos(dato):
 #printa los datos de todos
 def gameStats(ronda=0,id=0):
     if id!=0:
-        print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "="))
+        print("Round {}, Turno de {}".format(ronda, players[id]["name"]).center(FULL_SCREEN, "="))
     datos=recojerDatos(context_game["game"])
     datos+="Enter to continue".center(FULL_SCREEN)
     input(datos)
@@ -328,10 +332,10 @@ def bets(id):
         input("Enter to continue".center(FULL_SCREEN))
     else:
         while True:
-            bet=input("".center(margen_player)+"Set the new bet: ")
+            bet=input("".center(MARGIN_PLAYER) + f"Set the new bet ({1}-{players[id]["points"]}): ")
             if not bet.isdigit():
                 print("Introduce only numbers!".center(FULL_SCREEN))
-            elif int(bet) not in range(1,players[id]["points"]):
+            elif int(bet) not in range(1,players[id]["points"]+1):
                 print("The new bet has to be a number between 1 and {}".format(players[id]["points"]).center(FULL_SCREEN))
             else:
                 players[id]["bet"]=int(bet)
@@ -356,8 +360,7 @@ def kill_player():
 def humanRound(id,mazo_keys,ronda):
     opcion=0
     while opcion<5 and players[id]["roundPoints"]<7.5:
-        show_header_play_game()
-        roun="Round {}, Turno de {}".format(ronda, players[id]["name"]).center(tamaño_pantalla, "=") + "\n"
+        roun="Round {}, Turno de {}".format(ronda, players[id]["name"]).center(FULL_SCREEN, "=") + "\n"
         hand=showMano(players[id]["cards"],cartas,players[id]["roundPoints"])
         opcion=menus_game(humanRound_menu,roun,hand)
         if opcion == 1:
@@ -380,20 +383,20 @@ def humanRound(id,mazo_keys,ronda):
     show_header_play_game()
     if players[id]["roundPoints"]>=7.5:
         print(roun+showMano(players[id]["cards"], cartas, players[id]["roundPoints"]))
-        print("You got 7.5!".center(tamaño_pantalla) if players[id]["roundPoints"]==7.5 else "You exceeded the score limit!".center(tamaño_pantalla))
-        input("Enter to continue".center(tamaño_pantalla))
+        print("You got 7.5!".center(FULL_SCREEN) if players[id]["roundPoints"] == 7.5 else "You exceeded the score limit!".center(FULL_SCREEN))
+        input("Enter to continue".center(FULL_SCREEN))
     else:
         print(roun+showMano(players[id]["cards"], cartas, players[id]["roundPoints"]))
-        input("Enter to continue".center(tamaño_pantalla))
+        input("Enter to continue".center(FULL_SCREEN))
 #jugar
 def play_game():
     # print(cartas)
     # print(context_game["game"])
     if len(cartas)==0:
-        input("First choose a deck!...".center(tamaño_pantalla))
+        input("First choose a deck!...".center(FULL_SCREEN))
         return
     elif checkMinimun2PlayerWithPoints():
-        input("at least 2 players are needed!").center(tamaño_pantalla)
+        input("at least 2 players are needed!").center(FULL_SCREEN)
         return
     player_game = {}            # datos para exportar a  BBDD
     player_game_round = {}      # datos para exportar a BBDD
@@ -411,6 +414,7 @@ def play_game():
     # print(context_game["game"])
     for i in context_game["game"]:
         start_points_game[i]=players[i]["points"]
+
     for ronda in range(1, context_game["round"] + 1):
         setBets()
         cartas_keys = barajeo_carta(cartas.keys())
@@ -451,7 +455,7 @@ def play_game():
                 players[context_game["game"][-1]]["bank"], players[bank_candidates[-1]]["bank"]
 
         show_header_play_game()
-        print("Fin de la ronda {}.".format(ronda).center(tamaño_pantalla,"="))
+        print("Fin de la ronda {}.".format(ronda).center(FULL_SCREEN, "="))
         gameStats()
         limpia_datos()
         orderAllPlayers()
@@ -459,11 +463,11 @@ def play_game():
 
 
 
-        if not checkMinimun2PlayerWithPoints():
+        if checkMinimun2PlayerWithPoints():
             break
 
     # fin dela partida
-    showWinner(context_game["round"])
+    showWinner(rondas_jugadas)
     write_log("getID() used")
     game_id = getID()  # obtiene id dela BBDD
     cardGame.update({"cardgame_id": game_id, "players": len(start_points_game), "start_hour": start_time,"rounds": rondas_jugadas, "end_hour": datetime.time(datetime.now()),"deck_id":context_game["deck_id"]})
@@ -498,10 +502,10 @@ def sorted_ranked(datos,keys,order_key):
 
 #opcion 4 ranking
 def ranking():
-    show_header_dinamic("rankings")
     datos=get_ranking()
     keys = list(datos.keys())
     while True:
+        show_header_rank()
         opcion=menus(ranking_menu)
         if opcion==1:
             keys=sorted_ranked(datos,keys,"earnings")
@@ -511,9 +515,9 @@ def ranking():
             keys = sorted_ranked(datos, keys, "minutes_played")
         else:
             break
-        encabezado=("*"*rank_tamaño).center(tamaño_pantalla)+"\n"+ \
-                   ("NIF".ljust(13)+"Name".ljust(25)+"Earnings".rjust(10)+"Games Played".rjust(15)+"Minutes Played".rjust(17)).center(tamaño_pantalla)+"\n"+ \
-                       ("*" * rank_tamaño).center(tamaño_pantalla) + "\n"
+        encabezado= ("*" * RANK_SIZE).center(FULL_SCREEN) + "\n" + \
+                    ("NIF".ljust(13)+"Name".ljust(25)+"Earnings".rjust(10)+"Games Played".rjust(15)+"Minutes Played".rjust(17)).center(FULL_SCREEN) + "\n" + \
+                    ("*" * RANK_SIZE).center(FULL_SCREEN) + "\n"
         exit=False
         pagina=0
         show_max=10
@@ -526,7 +530,7 @@ def ranking():
                 many=10
 
             for i in range(show_max*pagina,(show_max*pagina)+many):
-                rank+=(keys[i].ljust(13)+datos[keys[i]]["name"].ljust(25)+str(datos[keys[i]]["earnings"]).rjust(10)+str(datos[keys[i]]["games_played"]).rjust(15)+str(datos[keys[i]]["minutes_played"]).rjust(17)).center(tamaño_pantalla)+"\n"
+                rank+= (keys[i].ljust(13)+datos[keys[i]]["name"].ljust(25)+str(datos[keys[i]]["earnings"]).rjust(10)+str(datos[keys[i]]["games_played"]).rjust(15)+str(datos[keys[i]]["minutes_played"]).rjust(17)).center(FULL_SCREEN) + "\n"
 
             msg="exit to go Rankings:"
             if pagina-1>=0:
@@ -534,6 +538,7 @@ def ranking():
             if show_max*pagina+many+1<=len(keys):
                 msg="+ to go ahead, "+msg
             while True:
+                show_header_rank()
                 opc=input(rank+"\n"+" ".ljust(20)+msg).upper()
                 if opc == "-" and "-" in msg:
                     pagina -= 1
@@ -545,8 +550,8 @@ def ranking():
                     exit = True
                     break
                 else:
-                    print("Invalid Option".center(tamaño_pantalla,"="))
-                    input("Press enter to continue".center(tamaño_pantalla))
+                    print("Invalid Option".center(FULL_SCREEN, "="))
+                    input("Press enter to continue".center(FULL_SCREEN))
 
 
 
@@ -554,17 +559,18 @@ def showActualPlayers():
     dato=" ".center(50)+"Actual Players in game".center(61,"*")+"\n"
     for i in context_game["game"]:
         dato+=" ".center(52)+i.ljust(13)+players[i]["name"].ljust(25)+("human" if players[i]["human"]==1 else "Boot").ljust(10)+tipo[players[i]["type"]]+"\n"
+    show_header_select_players()
     input(dato+"\n"+"Enter to continue...".rjust(72))
 
 def setGamePlayers():
     exit=False
     showActualPlayers()
     data=datos_jugadores()
-    cabezera="Select Players".center(tamaño_pantalla,"=")+"\n"+\
-            "Boot Players".center(media_pantalla)+"||"+"Human Players".center(media_pantalla)+"\n"+\
-            "".center(tamaño_pantalla,"-")+"\n"\
-            "ID".ljust(25)+"Name".ljust(25)+"Type".ljust(26)+"||"+"ID".ljust(25)+"Name".ljust(25)+"Type".ljust(25)+"\n"+\
-            "".center(tamaño_pantalla,"=")+"\n"
+    cabezera="Select Players".center(FULL_SCREEN, "=") + "\n" +\
+            "Boot Players".center(HALF_SCREEN) + "||" + "Human Players".center(HALF_SCREEN) + "\n" +\
+            "".center(FULL_SCREEN, "-") + "\n"\
+            "ID".ljust(25) + "Name".ljust(25) + "Type".ljust(26) + "||" + "ID".ljust(25) + "Name".ljust(25) + "Type".ljust(25) + "\n" + \
+             "".center(FULL_SCREEN, "=") + "\n"
     while not exit:
         info=cabezera
         human=[]
@@ -584,11 +590,12 @@ def setGamePlayers():
         else:
             for i in range(largo_min, len(human)):
                 info+=" ".ljust(75)+"||"+human[i].ljust(25)+data[human[i]]["name"].ljust(25)+tipo[data[human[i]]["type"]].ljust(25)+"\n"
-        info+="=".center(tamaño_pantalla)+"\n"+"Option (id to add to game, -id to remove player, sh to show actual players in game, -1 to go back:".center(tamaño_pantalla)
+        info+="=".center(FULL_SCREEN) + "\n" + "Option (id to add to game, -id to remove player, sh to show actual players in game, -1 to go back:".center(FULL_SCREEN)
         while True:
+            show_header_select_players()
             opcion=input(info).upper()
             if len(opcion)<1:
-                input("Invalid Option".center(tamaño_pantalla) + "\n" + "Enter to continue".center(tamaño_pantalla))
+                input("Invalid Option".center(FULL_SCREEN) + "\n" + "Enter to continue".center(FULL_SCREEN))
             elif opcion[0]=="-" and opcion[1:]=="1":
                 exit=True
                 break
@@ -603,8 +610,7 @@ def setGamePlayers():
             elif opcion=="SH":
                 showActualPlayers()
             else:
-                input("Invalid Option".center(tamaño_pantalla)+"\n"+"Enter to continue".center(tamaño_pantalla))
-
+                input("Invalid Option".center(FULL_SCREEN) + "\n" + "Enter to continue".center(FULL_SCREEN))
 def set_cards_deck():
     write_log("set_cards_deck() used")
     selected_deck=get_cards_deck()
@@ -620,6 +626,7 @@ def set_cards_deck():
 def setRounds():
     write_log("setRounds() used")
     while True:
+        show_header_select_rounds()
         rounds=input(" ".ljust(70)+"Max Round: ")
         if not rounds.isdigit():
             input(" ".ljust(70)+"Please, select a number."+"\n"+" ".ljust(70) + "Enter to continue")
@@ -698,11 +705,11 @@ def showConsultas(datos,campos, opcion):
         full_size+=len(i)+5
         tamaños.append(len(i)+5)
 
-    encabezado = ("*" * full_size).center(tamaño_pantalla) + "\n"
+    encabezado = ("*" * full_size).center(FULL_SCREEN) + "\n"
     data=""
     for i in range(len(campos)):
         data+=campos[i].ljust(tamaños[i])
-    encabezado+=data.center(tamaño_pantalla)+"\n"+("*"*full_size).center(tamaño_pantalla)+"\n"
+    encabezado+= data.center(FULL_SCREEN) + "\n" + ("*" * full_size).center(FULL_SCREEN) + "\n"
     exit=False
     pagina=0
     show_max = 10
@@ -718,8 +725,8 @@ def showConsultas(datos,campos, opcion):
             info=""
             for j in range(len(datos[i])):
                 info+=str(datos[i][j]).ljust(tamaños[j])
-            rank+=info.center(tamaño_pantalla)+"\n"
-        rank+=(f"Page {pagina+1}/{pagina_final}".center(full_size,"-")).center(tamaño_pantalla)
+            rank+= info.center(FULL_SCREEN) + "\n"
+        rank+=(f"Page {pagina+1}/{pagina_final}".center(full_size,"-")).center(FULL_SCREEN)
         msg="exit to go Rankings:"
         if pagina-1>=0:
             msg="- to go back, "+msg
@@ -727,9 +734,10 @@ def showConsultas(datos,campos, opcion):
             msg="+ to go ahead, "+msg
 
 
-        espacio_question=int((media_pantalla)-(full_size/2))
+        espacio_question=int((HALF_SCREEN) - (full_size / 2))
 
         while True:
+            show_header_reports()
             opc=input(rank+"\n"+" ".ljust(espacio_question)+msg).upper()
             if opc == "-" and "-" in msg:
                 pagina -= 1
@@ -741,26 +749,27 @@ def showConsultas(datos,campos, opcion):
                 exit = True
                 break
             else:
-                print("Invalid Option".center(tamaño_pantalla,"="))
-                input("Press enter to continue".center(tamaño_pantalla))
+                print("Invalid Option".center(FULL_SCREEN, "="))
+                input("Press enter to continue".center(FULL_SCREEN))
 
 def reports():
     while True:
-        show_header_dinamic("reports")
+        show_header_reports()
         opcion=menus(reports_menu)
         if opcion==11:
             break
         elif opcion not in consultas.keys():
-            input("Loading...".center(tamaño_pantalla))
+            input("Loading...".center(FULL_SCREEN))
         elif opcion==6:
+            show_header_reports()
             opcion=menus(reports_menu_6)
             if opcion!=3:
-                if opcion==1:
-                    data = select_query(consultas[6.1][0])
-                    showConsultas(data, consultas[6.1][1], 6.1)
-                else:
-                    data = select_query(consultas[6.2][0])
-                    showConsultas(data, consultas[6.2][1], 6.2)
+                # if opcion==1:
+                #     data = select_query(consultas[6.1][0])
+                #     showConsultas(data, consultas[6.1][1], 6.1)
+                # else:
+                data = select_query(consultas[6.2][0])
+                showConsultas(data, consultas[6.2][1], 6.2)
         else:
             data=select_query(consultas[opcion][0])
             showConsultas(data,consultas[opcion][1], opcion)
@@ -771,15 +780,15 @@ def showMano(cards,cartas,points):
     canti=len(cards)
     if canti!=0:
         largo=10*canti
-        a="\n"+(("┍"+"".center(8,"━")+"┑")*canti).center(tamaño_pantalla)+"\n"
+        a="\n" + (("┍"+"".center(8,"━")+"┑")*canti).center(FULL_SCREEN) + "\n"
         b=""
         for i in cards:
             b+="│"+i.ljust(8)+"│"
-        a+=b.center(tamaño_pantalla)+"\n"+("│        │"*canti).center(tamaño_pantalla)+"\n"
+        a+= b.center(FULL_SCREEN) + "\n" + ("│        │" * canti).center(FULL_SCREEN) + "\n"
         b=""
         for i in cards:
             b += "│" + str(cartas[i]["realValue"]).rjust(8) + "│"
-        a+=b.center(tamaño_pantalla)+"\n"+(("┕"+"".center(8,"─")+"┙")*canti).center(tamaño_pantalla)+"\n"+(f"Total value={points}".center(largo)).center(tamaño_pantalla)+"\n"
+        a+= b.center(FULL_SCREEN) + "\n" + (("┕" + "".center(8, "─") + "┙") * canti).center(FULL_SCREEN) + "\n" + (f"Total value={points}".center(largo)).center(FULL_SCREEN) + "\n"
         return a
     return ""
 
@@ -789,5 +798,6 @@ def showWinner(round):
         if players[i]["points"]-20>points:
             points=players[i]["points"]
             winner=i
-    print(f"The winner is {winner} - {players[winner]["name"]} in {round} rounds , with {points} points".center(tamaño_pantalla))
-    input("".center(tamaño_pantalla))
+    show_header_game_over()
+    print(f"The winner is {winner} - {players[winner]["name"]} in {round} rounds , with {points} points".center(FULL_SCREEN))
+    input("".center(FULL_SCREEN))
