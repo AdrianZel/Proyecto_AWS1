@@ -247,7 +247,7 @@ def show_header_reports2() -> None:
 def show_header_play_game():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(HORIZONTAL_LINE)
-    print("""
+    print(r"""
                                          .-~~-.               /\                 /\             
                                         {      }            .'  `.             .'  `.         .-~~~-__-~~~-.
                                      .-~-.    .-~-.        '      `.          '      `.      {              }
@@ -266,7 +266,7 @@ def show_header_play_game():
 def show_header_select_players():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(HORIZONTAL_LINE)
-    print("""
+    print(r"""
                                                   ███████╗███████╗██╗     ███████╗ ██████╗████████╗                                                   
                                                   ██╔════╝██╔════╝██║     ██╔════╝██╔════╝╚══██╔══╝                                                   
                                                   ███████╗█████╗  ██║     █████╗  ██║        ██║                                                      
